@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredicateApp", "PredicateAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaExpressions", "LambdaExpressions\LambdaExpressions.csproj", "{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometricCalculator", "GeometricCalculator\GeometricCalculator.csproj", "{134C071F-D096-4A15-8528-8F64B529346A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{134C071F-D096-4A15-8528-8F64B529346A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134C071F-D096-4A15-8528-8F64B529346A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134C071F-D096-4A15-8528-8F64B529346A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134C071F-D096-4A15-8528-8F64B529346A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

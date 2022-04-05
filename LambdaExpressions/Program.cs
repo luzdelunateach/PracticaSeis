@@ -17,6 +17,7 @@ namespace LambdaExpressions
                 Console.WriteLine("------------------ ");
                 Console.WriteLine("Fuction Calculator: ");
                 FunctionCalculator.Lambda(x, y);
+                ActionCalculator.Lambda(x, y);
             }
             else
             {
@@ -89,5 +90,15 @@ namespace LambdaExpressions
         {
             return x + y;
         }*/
+    }
+    class ActionCalculator
+    {
+        public static void Lambda(double x, double y)
+        {
+            Action<double, double> addition = (x, y) =>
+             {
+                 Console.WriteLine(x + y);
+             };
+        } //Si es voy 
     }
 }
