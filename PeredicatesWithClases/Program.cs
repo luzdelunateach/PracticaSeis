@@ -85,4 +85,5 @@ namespace PeredicatesWithClases
     {
         public static string Input { get; set; }
     }
+    
 }

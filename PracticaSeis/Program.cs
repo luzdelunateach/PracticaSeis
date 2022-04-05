@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PracticaSeis
 {
@@ -10,6 +11,7 @@ namespace PracticaSeis
         static void Main(string[] args)
         {
             MainMethod();
+            //list
             static void MainMethod()
             {
                 Delegate del = new Del(Message.Show);
@@ -34,6 +36,14 @@ namespace PracticaSeis
         public static void Show(string message)
         {
             Console.WriteLine(message);
+        }
+    }
+    class LambdaExpression
+    {
+        private static List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public static List<int> getPairs()
+        {
+            return list.FindAll(x => x % 2 == 0);
         }
     }
 }
