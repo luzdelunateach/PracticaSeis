@@ -17,6 +17,7 @@ namespace LambdaExpressions
                 Console.WriteLine("------------------ ");
                 Console.WriteLine("Fuction Calculator: ");
                 FunctionCalculator.Lambda(x, y);
+                Console.WriteLine("Action Calculator: ");
                 ActionCalculator.Lambda(x, y);
             }
             else
@@ -99,6 +100,6 @@ namespace LambdaExpressions
              {
                  Console.WriteLine(x + y);
              };
-        } //Si es voy 
+        } //Si no retorna nada entonces uso esta forma
     }
 }
