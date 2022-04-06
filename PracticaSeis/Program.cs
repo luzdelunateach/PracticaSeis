@@ -14,8 +14,8 @@ namespace PracticaSeis
             //list
             static void MainMethod()
             {
-                Delegate del = new Del(Message.Show);
-                //del();
+                Del del = new Del(Message.Show);
+                del();
                 Del2 del2 = new Del2(Message2.Show);
                 del2("Goodbye world");
             }
