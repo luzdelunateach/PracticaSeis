@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PracticaSeis", "PracticaSeis\PracticaSeis.csproj", "{CA99CB4B-4636-42E1-BEA5-C56FCBA0187A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Predicados", "Predicados\Predicados.csproj", "{0530996C-AEAD-4BFA-A929-4ED99E99984D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Predicados", "Predicados\Predicados.csproj", "{0530996C-AEAD-4BFA-A929-4ED99E99984D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeredicatesWithClases", "PeredicatesWithClases\PeredicatesWithClases.csproj", "{0657E231-9EAC-43D6-9141-D52D5ACF341E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeredicatesWithClases", "PeredicatesWithClases\PeredicatesWithClases.csproj", "{0657E231-9EAC-43D6-9141-D52D5ACF341E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PredicateApp", "PredicateApp\PredicateApp.csproj", "{FE06A24E-C1F1-4199-A89F-F34F31944DB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PredicateApp", "PredicateApp\PredicateApp.csproj", "{FE06A24E-C1F1-4199-A89F-F34F31944DB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LambdaExpressions", "LambdaExpressions\LambdaExpressions.csproj", "{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LambdaExpressions", "LambdaExpressions\LambdaExpressions.csproj", "{8CEA5A68-49BE-49DC-9E2D-DE6E5ED0059D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeometricCalculator", "GeometricCalculator\GeometricCalculator.csproj", "{134C071F-D096-4A15-8528-8F64B529346A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeometricCalculator", "GeometricCalculator\GeometricCalculator.csproj", "{134C071F-D096-4A15-8528-8F64B529346A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularExpression", "RegularExpression\RegularExpression.csproj", "{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{134C071F-D096-4A15-8528-8F64B529346A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{134C071F-D096-4A15-8528-8F64B529346A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{134C071F-D096-4A15-8528-8F64B529346A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
