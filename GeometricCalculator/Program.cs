@@ -6,7 +6,7 @@ namespace GeometricCalculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Select one item: 1.Square, 2.Triangle, 3.Rect, 4.Circle");
+            Console.WriteLine("Select one option: \n1.Square\n2.Triangle\n3.Rect\n4.Circle");
             var input = Console.ReadLine();
             if (Int32.TryParse(input, out int x))
             {
@@ -26,7 +26,19 @@ namespace GeometricCalculator
                         }
                         break;
                     case 2:
-
+                        Console.WriteLine("Base");
+                        var bT = Console.ReadLine();
+                        Console.WriteLine("Length");
+                        var lT = Console.ReadLine();
+                        if (Double.TryParse(bT, out double baT) && Double.TryParse(lT, out double leT))
+                        {
+                            DelegateGeometricCalculator.TriangleD(baT, leT);
+                            FuctionGeometricCalculator.TriangleF(baT, leT);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please insert a valid number.");
+                        }
                         break;
                     case 3:
                         Console.WriteLine("Base");
@@ -43,7 +55,7 @@ namespace GeometricCalculator
                         }
                         break;
                     case 4:
-                        Console.WriteLine("Ride");
+                        Console.WriteLine("Ridius of the Circle: ");
                         var r = Console.ReadLine();
                         if (Double.TryParse(r, out double ra))
                         {
@@ -71,7 +83,8 @@ namespace GeometricCalculator
         public delegate double Rectangle(double x, double y);
         public delegate double Square(double x);
         public delegate double Circle(double x);
-
+        public delegate double Triangle(double x,double y);
+        public delegate double TriangleP(double x);
         public static void RectangleD(double num, double num2)
         {
             Rectangle area = new Rectangle((b, l) => b * l);
@@ -80,6 +93,15 @@ namespace GeometricCalculator
             Rectangle perimetro = new Rectangle((b, l) =>(2 * b) + (2 * l));
             Console.WriteLine($"D. Perimeter of Rectangle: {perimetro(num, num2)}");
 
+        }
+
+        public static void TriangleD(double num, double num2)
+        {
+            Triangle areaT = new Triangle((b,l) => (b * l)/2);
+            Console.WriteLine($"D. Area of Equilateral Triangle: {areaT(num,num2)}");
+
+            TriangleP perimeterT = new TriangleP(s => 3 * s);
+            Console.WriteLine($"D. Perimeter of Equilateral Triangle: {perimeterT(num2)}");
         }
 
         public static void SquareD(double num)
@@ -125,12 +147,23 @@ namespace GeometricCalculator
 
         public static void CircleF(double x)
         {
-            Func<double, double> areaCircle =  c => Math.PI * Math.Pow(c, 2);
-            //Console.WriteLine($"F. Area of Square: {areaSquare(x)}");
+            Func<double, double> areaCircle = (c) => Math.PI * Math.Pow(c, 2);
+            Console.WriteLine($"F. Area of Circle: {areaCircle(x)}");
 
-            Func<double, double> perimeterSquare = (x) => 4 * x;
-            Console.WriteLine($"F. Perimeter of Square: {perimeterSquare(x)}");
+            Func<double, double> perimeterCircle = c => 2 * Math.PI * c;
+            Console.WriteLine($"F. Perimeter of Circle: {perimeterCircle(x)}");
         }
+
+        public static void TriangleF(double x, double y)
+        {
+            Func<double, double, double> areaTriangle = (x, y) => (x * y) / 2;
+            Console.WriteLine($"F. Area of Equilateral Triangle: {areaTriangle(x,y)}");
+
+            Func<double, double> perimeterTriangle = y => 3 * y;
+            Console.WriteLine($"F. Perimeter of Equilateral Triangle: {perimeterTriangle(y)}");
+        }
+
+
 
     }
 }
