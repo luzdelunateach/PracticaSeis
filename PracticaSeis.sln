@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithDates", "Working
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asynchronous", "Asynchronous\Asynchronous.csproj", "{F368CEEF-7D06-4203-AE3B-07E84C84B47D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder", "Reminder\Reminder.csproj", "{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParalelims", "TestParalelims\TestParalelims.csproj", "{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{F368CEEF-7D06-4203-AE3B-07E84C84B47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F368CEEF-7D06-4203-AE3B-07E84C84B47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F368CEEF-7D06-4203-AE3B-07E84C84B47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,12 +10,12 @@ namespace Asynchronous
         static async Task Main(string[] args)
         {
            
-            Console.WriteLine("Loading...");
-            Asynchronous.WaitForIt();
-            await Asynchronous.WaitForIt2(); //await es una promesa pero eventualmente voy a regresar ati con una promesa
+            //Console.WriteLine("Loading...");
+            //Asynchronous.WaitForIt();
+            //await Asynchronous.WaitForIt2(); //await es una promesa pero eventualmente voy a regresar ati con una promesa
             //async esperando al servidor mientras 
             var timeElapsed = await Parallelism.Main(); //await desemcapsula es tarea
-            Console.WriteLine($"Ambos rpocesos finalizan despues {timeElapsed / 100m} seconds");
+            Console.WriteLine($"Ambos procesos finalizan despues {timeElapsed / 100m} seconds");
         }
         
     }
@@ -68,5 +68,9 @@ namespace Asynchronous
                 Thread.Sleep(1000);
             });
         }
+
+        //formato de la fecha no sea igual 
+        //mostrar en consola el dia transcurrido
+        //mostrar
     }
 }
