@@ -15,15 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LambdaExpressions", "Lambda
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeometricCalculator", "GeometricCalculator\GeometricCalculator.csproj", "{134C071F-D096-4A15-8528-8F64B529346A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegularExpression", "RegularExpression\RegularExpression.csproj", "{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegularExpression", "RegularExpression\RegularExpression.csproj", "{E7B13E4F-EC41-425A-AE33-3183C0AF3B1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkingWithDates", "WorkingWithDates\WorkingWithDates.csproj", "{30E33E0A-B710-4140-84D8-0F502D8A459A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkingWithDates", "WorkingWithDates\WorkingWithDates.csproj", "{30E33E0A-B710-4140-84D8-0F502D8A459A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asynchronous", "Asynchronous\Asynchronous.csproj", "{F368CEEF-7D06-4203-AE3B-07E84C84B47D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asynchronous", "Asynchronous\Asynchronous.csproj", "{F368CEEF-7D06-4203-AE3B-07E84C84B47D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminder", "Reminder\Reminder.csproj", "{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reminder", "Reminder\Reminder.csproj", "{783C6EA7-7A0F-4113-B93C-6777DC74BEFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParalelims", "TestParalelims\TestParalelims.csproj", "{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestParalelims", "TestParalelims\TestParalelims.csproj", "{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POO", "POO\POO.csproj", "{0DFCE542-38FF-4783-BAA1-2A568510C857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankApp", "BankApp\BankApp.csproj", "{4F453D73-54E5-4A37-BCA2-72BA4D05846E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeePOO", "EmployeePOO\EmployeePOO.csproj", "{77F84F00-CB26-4CA5-A46F-6F08271A977F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +81,18 @@ Global
 		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFDD0028-0253-4F46-9F12-9EC456C5A7D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DFCE542-38FF-4783-BAA1-2A568510C857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DFCE542-38FF-4783-BAA1-2A568510C857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DFCE542-38FF-4783-BAA1-2A568510C857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DFCE542-38FF-4783-BAA1-2A568510C857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F453D73-54E5-4A37-BCA2-72BA4D05846E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F453D73-54E5-4A37-BCA2-72BA4D05846E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F453D73-54E5-4A37-BCA2-72BA4D05846E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F453D73-54E5-4A37-BCA2-72BA4D05846E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F84F00-CB26-4CA5-A46F-6F08271A977F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F84F00-CB26-4CA5-A46F-6F08271A977F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F84F00-CB26-4CA5-A46F-6F08271A977F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F84F00-CB26-4CA5-A46F-6F08271A977F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
