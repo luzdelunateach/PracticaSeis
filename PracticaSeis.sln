@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeftRotation", "LeftRotatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brides", "Brides\Brides.csproj", "{9F24FA0B-9048-4624-9EF8-CD21382C6A9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Valleys", "Valleys\Valleys.csproj", "{0B60BE3E-D364-4EDA-A7AF-5E077D85E76B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{9F24FA0B-9048-4624-9EF8-CD21382C6A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F24FA0B-9048-4624-9EF8-CD21382C6A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F24FA0B-9048-4624-9EF8-CD21382C6A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B60BE3E-D364-4EDA-A7AF-5E077D85E76B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B60BE3E-D364-4EDA-A7AF-5E077D85E76B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B60BE3E-D364-4EDA-A7AF-5E077D85E76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B60BE3E-D364-4EDA-A7AF-5E077D85E76B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
