@@ -6,7 +6,7 @@ namespace EmployeePOO
 {
     class Program
     {
-        static List<Employee> employees = new List<Employee>() {
+        public static List<Employee> employees = new List<Employee>() {
 
                 new Employee(){ Id = 1, User = "pablo1", Password="pablo22", DateIni = new DateTime(1995,3,25), Role = "supervisor",
                     ListActivities = {
@@ -18,10 +18,10 @@ namespace EmployeePOO
                 new Employee(){ Id = 2, User = "juan1", Password="juan3", DateIni = new DateTime(1995,3,25), Role = "worker",
                     ListActivities = {
                         new Activity(){Description = "Realizar las tareas de testing", Date = new DateTime(1995,3,25), Hours = 8},
-                        new Activity(){Description = "Realizar las tareas del spring", Date = new DateTime().Date, Hours = 8}
+                        new Activity(){Description = "Realizar las tareas del spring", Date = new DateTime(2022,4,7), Hours = 8}
                     }
                 }
-            };
+         };
 
         static int userSesionSeed = 0;
         static void Main(string[] args)
@@ -29,6 +29,7 @@ namespace EmployeePOO
             Login();
         }
 
+        //hacer un pull request
 
         public static void Login()
         {
@@ -78,6 +79,8 @@ namespace EmployeePOO
                 }
             } while (userSesionSeed==0);
         }
+        //una persona puede tener muchas horas registradas
+        //muchas
 
         public static void MenuSupervisor()
         {
@@ -105,6 +108,9 @@ namespace EmployeePOO
                     case 3:
                         DeleteWorker();
                         break;
+                    case 4:
+                        ValidateTask();
+                        break;
                 }
             }
         }
@@ -116,6 +122,9 @@ namespace EmployeePOO
             if (!Int32.TryParse(idU, out int idUser))
             {
                 Console.WriteLine("Please insert an integer");
+            }
+            else
+            {
                 Console.WriteLine("User: ");
                 var u = Console.ReadLine();
                 if (String.IsNullOrEmpty(u))
@@ -129,25 +138,33 @@ namespace EmployeePOO
                     if (String.IsNullOrEmpty(p))
                     {
                         Console.WriteLine("Please insert a valid password");
+                    }
+                    else
+                    {
                         Console.WriteLine("Date: ");
                         var d = Console.ReadLine();
-
                         Console.WriteLine("Role: ");
                         var r = Console.ReadLine();
-                        employees.Add(new Employee
+                        if (String.IsNullOrEmpty(r))
                         {
-                            Id = idUser,
-                            User = u,
-                            Password = p,
-                            DateIni = DateTime.Today,
-                            Role = "worker",
-                            ListActivities = {
-                        new Activity(){Description = "Darlo de alta", Date = DateTime.Today, Hours = 0}
+                            Console.WriteLine("Please insert a valid role");
                         }
-                        });
-                        Console.WriteLine("Congrats, you added a new user");
+                        else
+                        {
+                            employees.Add(new Employee
+                            {
+                                Id = idUser,
+                                User = u,
+                                Password = p,
+                                DateIni = DateTime.Today,
+                                Role = "worker",
+                                ListActivities = {
+                                new Activity(){Description = "Darlo de alta", Date = DateTime.Today, Hours = 0}}
+                                });
+                            Console.WriteLine("Congrats, you added a new user");
+                        }
+                        
                     }
-                    
                 }
             }
             
@@ -192,7 +209,7 @@ namespace EmployeePOO
             if (!Int32.TryParse(op, out int opcion))
             {
                 Console.WriteLine("Please insert an integer");
-              
+                
             }
             else
             {
@@ -232,6 +249,32 @@ namespace EmployeePOO
                     );
                 }
                 
+            }
+            
+        }
+
+        public static void ValidateTask()
+        {
+            Console.WriteLine("User to validate Task: ");
+            var w=Console.ReadLine();
+            var emp = employees.FirstOrDefault(x => x.User == w );
+            if (emp != null)
+            {
+                foreach (Activity x in emp.ListActivities)
+                {
+                    Console.WriteLine($"User\tDescription\tDate\tHours\n{emp.User}\t{x.Description}\t{x.Date}\t{x.Hours}");
+                    Console.WriteLine("---------------------------------------------------------------------------------");
+                }
+                Console.WriteLine("Do you want to validate? (y/n)");
+                var resp=Console.ReadLine();
+                if (resp.Equals("y")){
+                    emp.ListActivities.RemoveAll(act => emp.User == w);
+                    Console.WriteLine("OK!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Worker doesn't have any activity yet");
             }
             
         }
