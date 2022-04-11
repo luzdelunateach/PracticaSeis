@@ -18,12 +18,18 @@ namespace EmployeePOO
             var u = ReadUser();
             var p = ReadPassword();
 
-            var e = DataBase.employees.FirstOrDefault(x => x.UserName == u && x.Password == p);
+            var e = FindUser(u,p);
             if (e != null)
             {
                 Console.WriteLine($"Bienvenido usuario:{e.UserName}");
                 userSesionSeed = e.Id;
             }
+        }
+
+        public static User FindUser(string user, string password)
+        {
+            var e = DataBase.employees.FirstOrDefault(x => x.UserName == user && x.Password == password);
+            return e;
         }
 
         static string ReadUser()
