@@ -12,7 +12,7 @@ namespace EmployeePOO
         
         public User(int Id, string UserName, string Password)
         {
-            this.Id = Id;
+            this.Id = Id++;
             this.UserName = UserName;
             this.Password = Password;
         }

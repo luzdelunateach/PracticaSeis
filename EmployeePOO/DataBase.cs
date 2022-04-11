@@ -6,23 +6,17 @@ namespace EmployeePOO
 {
     class DataBase
     {
-        public static List<Employee> employees = new List<Employee>() {
-
-                new Employee(1,"pablo1","pablo22",new DateTime(1995,3,25),"supervisor"){
-                    ListActivities = {
-                        new Activity(){Description = "Realize la revision de las actividades de los trabajadores", Date = new DateTime(2021,2,2), Hours = 8,
-                        Valid = false},
-                        new Activity(){Description = "Realize la revision de las actividades de los trabajadores", Date = new DateTime(2022,4,7), Hours = 8,
-                        Valid = false}
-                    }
-                },
-
-                new Employee(2,"juan1","juan3"){ DateIni = new DateTime(1995,3,25), Role = "worker",
-                    ListActivities = {
-                        new Activity(){Description = "Realizar las tareas de testing", Date = new DateTime(1995,3,25), Hours = 8, Valid = false},
-                        new Activity(){Description = "Realizar las tareas del spring", Date = new DateTime(2022,4,7), Hours = 8, Valid = false}
-                    }
-                }
-         };
+        public static List<Activity> activityE = new List<Activity>()
+        {
+            new Activity("Realize la revision de las actividades de los trabajadores",new DateTime(2021,2,2),8,false,1),
+            new Activity("Realize la revision de las actividades de los trabajadores",new DateTime(2021,2,2),8,false,2)
+        };
+        public static  List<User> employees = new List<User>() {
+                new Employee(1,"pablo1","pablo22",new DateTime(1995,3,25),"worker", activityE),
+                new Employee(3,"luna1","luna22",new DateTime(1995,3,25),"worker", activityE),
+                new Manager(2,"juan1","juan3",new DateTime(1995,3,25),"supervisor")
+        };
     }
+
+
 }

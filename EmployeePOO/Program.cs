@@ -6,32 +6,71 @@ namespace EmployeePOO
 {
     class Program
     {
-        public static List<Employee> employees = new List<Employee>() {
-
-                new Employee(){ Id = 1, User = "pablo1", Password="pablo22", DateIni = new DateTime(1995,3,25), Role = "supervisor",
-                    ListActivities = {
-                        new Activity(){Description = "Realize la revision de las actividades de los trabajadores", Date = new DateTime(2021,2,2), Hours = 8},
-                        new Activity(){Description = "Realize la revision de las actividades de los trabajadores", Date = new DateTime(2022,4,7), Hours = 8}
-                    }
-                },
-
-                new Employee(){ Id = 2, User = "juan1", Password="juan3", DateIni = new DateTime(1995,3,25), Role = "worker",
-                    ListActivities = {
-                        new Activity(){Description = "Realizar las tareas de testing", Date = new DateTime(1995,3,25), Hours = 8},
-                        new Activity(){Description = "Realizar las tareas del spring", Date = new DateTime(2022,4,7), Hours = 8}
-                    }
-                }
-         };
-
         static int userSesionSeed = 0;
         static void Main(string[] args)
         {
             Login();
         }
 
+        public static void Login()
+        {
+            Console.WriteLine("¡Good Morning!");
+            var u = ReadUser();
+            var p = ReadPassword();
+
+            var e = DataBase.employees.FirstOrDefault(x => x.UserName == u && x.Password == p);
+            if (e != null)
+            {
+                Console.WriteLine($"Bienvenido usuario:{e.UserName}");
+                userSesionSeed = e.Id;
+            }
+        }
+
+        static string ReadUser()
+        {
+            bool valid = false;
+            string user = "";
+            do
+            {
+                Console.WriteLine("Please, Insert your User");
+                user = Console.ReadLine();
+                if (string.IsNullOrEmpty(user))
+                {
+                    Console.WriteLine("Please insert a correct user");
+                }
+                else
+                {
+                    valid = true;
+                }
+            } while (valid!=true);
+
+            return user;
+        }
+
+        static string ReadPassword()
+        {
+            bool valid = false;
+            string password = "";
+            do
+            {
+                Console.WriteLine("Password: ");
+                password = Console.ReadLine();
+                if (string.IsNullOrEmpty(password))
+                {
+                    Console.WriteLine("Please insert a correct password");
+                }
+                else
+                {
+                    valid = true;
+                }
+            } while (valid != true);
+
+            return password;
+        }
+
         //hacer un pull request
 
-        public static void Login()
+        /*public static void Login()
         {
             do {
                 Console.WriteLine("¡Good Morning!");
@@ -151,17 +190,7 @@ namespace EmployeePOO
                         }
                         else
                         {
-                            employees.Add(new Employee
-                            {
-                                Id = idUser,
-                                User = u,
-                                Password = p,
-                                DateIni = DateTime.Today,
-                                Role = "worker",
-                                ListActivities = {
-                                new Activity(){Description = "Darlo de alta", Date = DateTime.Today, Hours = 0}}
-                                });
-                            Console.WriteLine("Congrats, you added a new user");
+                            
                         }
                         
                     }
@@ -170,36 +199,9 @@ namespace EmployeePOO
             
         }
 
-        public static void EditWorker()
-        {
-            Console.WriteLine("User to Edit: ");
-            var userE= Console.ReadLine();
-            var e = employees.FirstOrDefault(x => x.User == userE);
-            if (e!=null)
-            {
-                Console.WriteLine("Change the name of the user: ");
-                var user = Console.ReadLine();
-                e.User = user;
-                Console.WriteLine("Change the password: ");
-                var password = Console.ReadLine();
-                e.Password = password;
-                Console.WriteLine("Change the role: ");
-                var role = Console.ReadLine();
-                e.Role = role;
-            }
-        }
+       
 
-        public static void DeleteWorker()
-        {
-            Console.WriteLine("User to Delete: ");
-            var userE = Console.ReadLine();
-            var worker = employees.FirstOrDefault(x => x.User == userE);
-            if (worker != null)
-            {
-                employees.Remove(worker);
-            }
-
-        }
+      
 
         public static void MenuWorker()
         {
@@ -226,32 +228,7 @@ namespace EmployeePOO
             }
         }
 
-        public static void AddActivity()
-        {
-            Console.WriteLine("User to add activity: ");
-            var userE = Console.ReadLine();
-            var worker = employees.FirstOrDefault(x => x.User == userE);
-            if (worker != null)
-            {
-                Console.WriteLine("Add de description: ");
-                var description = Console.ReadLine();
-                Console.WriteLine("Total of working hours: ");
-                var hour = Console.ReadLine();
-                if (!Int32.TryParse(hour, out int h))
-                {
-                    Console.WriteLine("Please insert an integer");
-                    
-                }
-                else
-                {
-                    worker.ListActivities.Add(
-                        new Activity() { Description = description, Date = DateTime.Today, Hours = h }
-                    );
-                }
-                
-            }
-            
-        }
+        
 
         public static void ValidateTask()
         {
@@ -283,6 +260,6 @@ namespace EmployeePOO
         {
             userSesionSeed = 0;
             Environment.Exit(0);
-        }
+        }*/
     }
 }
