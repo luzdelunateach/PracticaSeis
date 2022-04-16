@@ -10,7 +10,7 @@ namespace eShop
         {
             Console.Clear();
             Console.WriteLine("Elige una opcion");
-            Console.WriteLine("1. Top 5 de productos más caros ordenados por precio más alto");
+            Console.WriteLine("1. Top 5 de productos mas caros ordenados por precio");
             Console.WriteLine("2. Productos con 5 unidades o menos ordenados por unidades");
             Console.WriteLine("3. Nombre de productos por marcas ordenados por nombre");
             Console.WriteLine("4. Agrupación de departamentos con subdepartamentos y nombres de productos");
