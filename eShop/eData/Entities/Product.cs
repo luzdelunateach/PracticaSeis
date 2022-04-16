@@ -45,6 +45,12 @@ namespace Data.Entities
             Stock = stock;
         }
 
+        public void Update(string name, string description, decimal price)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+        }
 
         public void AddSubdepartment(Subdepartment subdepartment)
         {

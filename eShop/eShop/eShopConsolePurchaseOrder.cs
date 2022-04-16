@@ -128,7 +128,7 @@ namespace eShop
             if (didParse)
             {
                 var po = _purchaseOrderService.ChangeStatus(poId, newStatus);
-                // actualizar (sumar) el stock de los productos originales que fueron comprados por la orden de compra que haya sido pagada.
+                
                 if (newStatus == PurchaseOrderStatus.Paid)
                 {
                     ActualizarStock(po);

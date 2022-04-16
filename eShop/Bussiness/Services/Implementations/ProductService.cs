@@ -35,16 +35,14 @@ namespace Bussiness.Services.Implementations
         
         public void UpdateProduct(Product product)
         {
-            var element = ProductList.FirstOrDefault(p => p.Id == product.Id);
-            if (element != null)
+            var entity = ProductList.FirstOrDefault(c => c.Id == product.Id);
+            if (entity != null)
             {
-                var index = ProductList.IndexOf(element);
-                ProductList[index] = product;
+                entity.Update(product.Name, product.Description, product.Price);
             }
             else
-            {
                 throw new ApplicationException("El producto no fue encontrado");
-            }
+
         }
 
         public void DeleteProduct(int id)

@@ -8,9 +8,9 @@ namespace Bussiness
     {
         public static List<Product> ProductList = new List<Product>()
         {
-            new Product("Silla", 100M, "Silla color negro", "Dico", "S1S2", 1),
-            new Product("Escritorio", 300M, "Escritorio sencillo", "Dico", "S1S3", 2),
-            new Product("Sofá", 500M, "Color café, piel sintética", "Dico", "S1S4", 3)
+            new Product("Silla", 100M, "Silla color morado", "Muebleria Diana", "S1S2", 1),
+            new Product("Escritorio", 300M, "Escritorio de madera", "Dico", "S1S3", 2),
+            new Product("Sofa", 500M, "Gris de terciopelo", "Salinas", "S1S4", 3)
         };
 
         public static List<Department> DepartmentList = new List<Department>()

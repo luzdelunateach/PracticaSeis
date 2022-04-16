@@ -135,41 +135,41 @@ namespace eShop
             }
         }
 
+        
         private void EditarProducto()
         {
-            Console.WriteLine("Agrega los valores necesarios para modificar el producto");
-            Console.WriteLine("Id:");
+            Console.WriteLine("Ingresa el Id para editar un producto");
+            Console.WriteLine("Id");
             var id = Console.ReadLine();
-            Console.WriteLine("Nombre");
-            var nombre = Console.ReadLine();
-            Console.WriteLine("Precio");
-            var precio = Console.ReadLine();
-            Console.WriteLine("Descripción");
-            var descripcion = Console.ReadLine();
-            Console.WriteLine("Marca");
-            var marca = Console.ReadLine();
-
             try
             {
-                if (!Int32.TryParse(id, out int idAux))
-                    throw new ApplicationException("No se pudo casteal el ID correctamente.");
-
-                if (!Decimal.TryParse(precio, out decimal precioAux))
+                if (!int.TryParse(id, out int idAux))
+                {
+                    throw new ApplicationException("No se puede castear el ID correctamente");
+                }
+                var product = _productService.GetProduct(idAux);
+                Console.WriteLine("Ingrese el nuevo nombre del producto: ");
+                var n = Console.ReadLine();
+                if (String.IsNullOrEmpty(n))
+                {
+                    throw new ArgumentNullException("Ingresar un nombre correcto");
+                }
+                Console.WriteLine("Ingrese la nueva descripción");
+                var d = Console.ReadLine();
+                if (String.IsNullOrEmpty(d))
+                {
+                    throw new ArgumentNullException("Ingresar una descripcion correcta");
+                }
+                Console.WriteLine("Ingresar el nuevo precio");
+                var p = Console.ReadLine();
+                if (!decimal.TryParse(p, out decimal priceAux))
+                {
                     throw new ApplicationException("El precio es inválido");
-
-                var producto = _productService.GetProduct(idAux);
-                if (producto != null)
-                {
-                    var newProduct = producto;
-                    newProduct.UpdateProduct(nombre, precioAux, descripcion, marca);
-                    _productService.UpdateProduct(newProduct);
-                    Console.WriteLine("Producto editado correctamente");
-                }
-                else
-                {
-                    Console.WriteLine("No se encontró el producto");
                 }
 
+                var productTwo = new Product(n, priceAux, d, product.Brand, product.Sku,idAux);
+
+                _productService.UpdateProduct(productTwo);
             }
             catch (Exception ex)
             {
