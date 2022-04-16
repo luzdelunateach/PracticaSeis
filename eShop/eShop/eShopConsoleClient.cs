@@ -10,7 +10,7 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        
+        #region MenuCliente
         private void MenuCliente()
         {
             Console.Clear();
@@ -45,8 +45,8 @@ namespace eShop
             }
            
         }
-
-        
+        #endregion
+        #region CRUD
         private void AgregarProductoCarrito()
         {
             List<Product> listShopProducts = new List<Product>();
@@ -150,5 +150,6 @@ namespace eShop
                 });
             });
         }
+        #endregion
     }
 }

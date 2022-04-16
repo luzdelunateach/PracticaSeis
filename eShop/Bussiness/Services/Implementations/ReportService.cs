@@ -35,20 +35,21 @@ namespace Bussiness.Services.Implementations
                 .Select(c => new ProductReportDto
                 {
                     Name = c.Name,
-                    Price = c.Price
+                    Price = c.Price,
+                    Stock = c.Stock
                 }).ToList();
         }
 
-        public List<BrandProductReportDto> ProductsByBrandOrderedByProductName()
+        public List<ProductReportDto> ProductsByBrandOrderedByProductName()
         {
-            return (List<BrandProductReportDto>)ProductList
-                .OrderBy(p => p.Name)
-                .GroupBy(p => p.Brand)
-                .Select(p => new BrandProductReportDto
+            return ProductList
+                .OrderBy(c => c.Brand)
+                .ThenBy(c => c.Name)
+                .Select(c => new ProductReportDto
                 {
-                    Brand = p.Key,
-                    Productos = p.Select(pd => new ProductReportDto { Name = pd.Name, Price = pd.Price }).ToList()
-                }) ;
+                    Name = c.Name,
+                    Brand = c.Brand
+                }).ToList();
         }
 
         public List<DepartmentSubdepartmentProductReportDto> GroupDepartmentGroupSubdepartmentProducts()

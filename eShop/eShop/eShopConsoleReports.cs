@@ -5,7 +5,7 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        #region Menu
+        #region MenuReportes
         private void MenuDeReportes()
         {
             Console.Clear();

@@ -9,7 +9,7 @@ namespace Bussiness.Services.Abstractions
     {
         public List<ProductReportDto> Top5ExpensiveProductsOrderedByPrice();
         public List<ProductReportDto> Products5orLessUnitsOrderedByUnits();
-        public List<BrandProductReportDto> ProductsByBrandOrderedByProductName();
+        public List<ProductReportDto> ProductsByBrandOrderedByProductName();
         public List<DepartmentSubdepartmentProductReportDto> GroupDepartmentGroupSubdepartmentProducts();
         public List<PurchaseOrder> Last7DaysOrdersWithPaidStatus();
         public List<PurchaseOrder> PurchaseOrdersChair();

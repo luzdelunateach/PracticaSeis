@@ -49,7 +49,7 @@ namespace eShop
             var response = Console.ReadLine();
             return response.Equals('s') ? false : true;
         }
-            #endregion
+        #endregion
             #region MenuAdministrador
         public bool MainMenu()
         {
