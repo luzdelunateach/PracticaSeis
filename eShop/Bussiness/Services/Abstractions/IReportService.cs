@@ -11,9 +11,9 @@ namespace Bussiness.Services.Abstractions
         public List<ProductReportDto> ReportFiveProductsorLess();
         public List<ProductReportDto> ReportProductsByBrand();
         public List<DepartmentSubdepartmentReportDto> ReportSubdepartmentProducts();
-        public List<PurchaseOrder> Last7DaysOrdersWithPaidStatus();
-        public List<PurchaseOrder> PurchaseOrdersChair();
-        public List<PurchaseOrder> LevisPurchaseOrdersPendingOfPayment();
-        public Product MorePurchasedUnitsProduct();
+        public List<PurchaseOrder> ReportLastSevenDays();
+        public List<PurchaseOrder> ReportPurchaseOrdersChair();
+        public List<PurchaseOrder> ReportLevisPurchaseOrders();
+        public Product ReportMorePurchasedProduct();
     }
 }

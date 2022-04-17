@@ -10,33 +10,27 @@ namespace Bussiness.Services.Implementations
     public class PurchaseOrderService : IPurchaseOrderService
     {
         private List<PurchaseOrder> _purchaseOrders = new List<PurchaseOrder>();
-
         public void AddPurchaseOrder(PurchaseOrder purchaseOrder) => _purchaseOrders.Add(purchaseOrder);
-
         public List<PurchaseOrder> GetPurchaseOrders() => _purchaseOrders;
-
-
-        public PurchaseOrder ChangeStatus(int purchaseOrderId, PurchaseOrderStatus status)
+        public PurchaseOrder ChangeStatus(int id, PurchaseOrderStatus status)
         {
-            var p = _purchaseOrders.FirstOrDefault(x => x.Id == purchaseOrderId);
-
-            if (p != null)
+            var pO = _purchaseOrders.FirstOrDefault(p => p.Id == id);
+            if (pO != null)
             {
-                p.ChangeStatus(status);
-                return p;
+                pO.ChangeStatus(status);
+                return pO;
             }
-
-            throw new ApplicationException("No se encuentra la orden solicitada.");
+            throw new ApplicationException("No se encuentra la orden");
         }
 
-        public void UpdateOriginalStock(PurchaseOrder purchaseOrder)
+        public void UpdateProductListStock(PurchaseOrder purchaseOrder)
         {
-            purchaseOrder.PurchasedProducts.ForEach(purProd =>
+            purchaseOrder.PurchasedProducts.ForEach(pP =>
             {
-                var originalProduct = TestData.ProductList.Where(x => x.Id == purProd.Id).FirstOrDefault();
+                var originalProduct = TestData.ProductList.Where(pl => pl.Id == pP.Id).FirstOrDefault();
                 if (originalProduct != null)
                 {
-                    originalProduct.UpdateStock(originalProduct.Stock + purProd.Stock);
+                    originalProduct.UpdateStock(originalProduct.Stock + pP.Stock);
                 }
                 else
                 {

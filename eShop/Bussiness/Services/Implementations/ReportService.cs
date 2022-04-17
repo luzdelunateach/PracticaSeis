@@ -12,7 +12,7 @@ namespace Bussiness.Services.Implementations
     {
         private List<Product> ProductList = TestData.ProductList;
         private List<Department> DepartmentList = TestData.DepartmentList;
-        private PurchaseOrderService _purchaseOrderService = new PurchaseOrderService();
+        private PurchaseOrderService purchaseOrderService = new PurchaseOrderService();
         
 
         public List<ProductReportDto> ReportFiveExpensiveProducts()
@@ -73,36 +73,35 @@ namespace Bussiness.Services.Implementations
                 }).ToList();
         }
 
-        public List<PurchaseOrder> Last7DaysOrdersWithPaidStatus()
+        public List<PurchaseOrder> ReportLastSevenDays()
         {
-            var purchaseOrdersList = _purchaseOrderService.GetPurchaseOrders();
-            return purchaseOrdersList
-                .Where(x => x.PurchaseDate >= DateTime.Now.AddDays(-7) && x.Status == PurchaseOrderStatus.Paid)
+            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
+            return purchaseOrders
+                .Where(pOL => pOL.PurchaseDate >= DateTime.Now.AddDays(-7) && pOL.Status == PurchaseOrderStatus.Paid)
                 .ToList();
         }
 
-        public List<PurchaseOrder> PurchaseOrdersChair()
+        public List<PurchaseOrder> ReportPurchaseOrdersChair()
         {
-            var purchaseOrdersList = _purchaseOrderService.GetPurchaseOrders();
-
-            return purchaseOrdersList
-                .Where(x => x.PurchasedProducts.Any(p => p.Name.Equals("Silla")))
+            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
+            return purchaseOrders
+                .Where(pOL => pOL.PurchasedProducts.Any(p => p.Name.Equals("Silla")))
                 .ToList();
         }
 
-        public List<PurchaseOrder> LevisPurchaseOrdersPendingOfPayment()
+        public List<PurchaseOrder> ReportLevisPurchaseOrders()
         {
-            var purchaseOrdersList = _purchaseOrderService.GetPurchaseOrders();
-            return purchaseOrdersList
-                .Where(x => x.Provider.Name.Equals("Levis") && x.Status != PurchaseOrderStatus.Paid)
+            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
+            return purchaseOrders
+                .Where(pOL => pOL.Provider.Name.Equals("Levis") && pOL.Status != PurchaseOrderStatus.Paid)
                 .ToList();
         }
 
-        public Product MorePurchasedUnitsProduct()
+        public Product ReportMorePurchasedProduct()
         {
-            var purchaseOrdersList = _purchaseOrderService.GetPurchaseOrders();
+            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
 
-            return purchaseOrdersList.Where(x => x.Status == PurchaseOrderStatus.Paid)
+            return purchaseOrders.Where(pOL => pOL.Status == PurchaseOrderStatus.Paid)
                 .SelectMany(x => x.PurchasedProducts)
                 .GroupBy(g => g.Id)
                 .Select(g => new { g.Key, Product = g.First(), Sum = g.Sum(d => d.Stock) })
