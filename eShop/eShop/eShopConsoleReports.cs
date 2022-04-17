@@ -19,10 +19,10 @@ namespace eShop
             switch (Console.ReadLine())
             {
                 case "1":
-                    Top5ExpensiveProductsOrderedByPrice();
+                    FiveExpensiveProductsOrderedByPrice();
                     break;
                 case "2":
-                    Products5orLessUnitsOrderedByUnits();
+                    FiveProductsorLess();
                     break;
                 case "3":
                     ProductsByBrandOrderedByProductName();
@@ -39,24 +39,24 @@ namespace eShop
         #endregion
 
         #region Reportes
-        private void Top5ExpensiveProductsOrderedByPrice()
+        private void FiveExpensiveProductsOrderedByPrice()
         {
             var listProducts = _reportService.Top5ExpensiveProductsOrderedByPrice();
 
-            foreach (var prod in listProducts)
+            listProducts.ForEach(lp =>
             {
-                Console.WriteLine($"Producto: {prod.Name},  Precio: {prod.Price}");
-            }
+                Console.WriteLine($"Producto: {lp.Name},  Precio: {lp.Price}");
+            });
         }
 
-        private void Products5orLessUnitsOrderedByUnits()
+        private void FiveProductsorLess()
         {
             var listProducts = _reportService.Products5orLessUnitsOrderedByUnits();
 
-            foreach (var prod in listProducts)
+            listProducts.ForEach(lp =>
             {
-                Console.WriteLine($"Producto: {prod.Name},  Precio: {prod.Price}");
-            }
+                Console.WriteLine($"Producto: {lp.Name},  Precio: {lp.Price}");
+            });
         }
 
         private void ProductsByBrandOrderedByProductName()
