@@ -11,7 +11,7 @@ namespace eShop
             Console.Clear();
             Console.WriteLine("Elige una opcion");
             Console.WriteLine("1. Reporte de Top 5 de productos mas caros ordenados por precio");
-            Console.WriteLine("2. Reporte de Productos con 5 unidades o menos ");
+            Console.WriteLine("2. Reporte de Productos con 5 unidades o menos");
             Console.WriteLine("3. Reporte de productos por marcas ordenados por nombre");
             Console.WriteLine("4. Reporte de departamentos con subdepartamentos y nombres de productos");
             Console.WriteLine("5. Regresar");
@@ -41,7 +41,7 @@ namespace eShop
         #region Reportes
         private void FiveExpensiveProducts()
         {
-            var listProducts = _reportService.Top5ExpensiveProductsOrderedByPrice();
+            var listProducts = _reportService.ReportFiveExpensiveProducts();
 
             listProducts.ForEach(lp =>
             {
@@ -51,31 +51,27 @@ namespace eShop
 
         private void FiveProductsorLess()
         {
-            var listProducts = _reportService.Products5orLessUnitsOrderedByUnits();
+            var listProducts = _reportService.ReportFiveProductsorLess();
 
             listProducts.ForEach(lp =>
             {
-                Console.WriteLine($"Producto: {lp.Name}  \t  Precio: {lp.Price}");
+                Console.WriteLine($"Producto: {lp.Name}  \tPrecio: {lp.Price}");
             });
         }
 
         private void ProductsByBrand()
         {
-            var listProducts = _reportService.ProductsByBrandOrderedByProductName();
-            listProducts.ForEach(b =>
+            var listProducts = _reportService.ReportProductsByBrand();
+            listProducts.ForEach(lp =>
             {
-                Console.WriteLine($"Marca: {b.Brand}");
-                b.Productos.ForEach(p =>
-                {
-                    Console.WriteLine($"Producto: {p.Name}");
-                });
+                Console.WriteLine($"Marca: {lp.Brand} \tProducto: {lp.Name}");
             });
         }
 
         private void SubdepartmentProducts()
         {
-            var d = _reportService.GroupDepartmentGroupSubdepartmentProducts();
-            foreach (var department in d)
+            var deparments = _reportService.ReportSubdepartmentProducts();
+            foreach (var department in deparments)
             {
                 Console.WriteLine($"{department.Department}");
                 foreach (var subdepartment in department.Subdepartaments)

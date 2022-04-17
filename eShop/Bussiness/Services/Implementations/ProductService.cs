@@ -17,15 +17,12 @@ namespace Bussiness.Services.Implementations
 
         public Product GetProduct(int id)
         {
-           
             return ProductList.FirstOrDefault(p => p.Id == id);
         }
 
         public List<Product> GetProductStock()
         {
-            var element = ProductList.Where(p => p.Stock > 0).ToList();
-            
-            return element;
+            return ProductList.Where(p => p.Stock > 0).ToList();
         }
 
         public void AddProduct(Product product)
@@ -37,9 +34,7 @@ namespace Bussiness.Services.Implementations
         {
             var entity = ProductList.FirstOrDefault(c => c.Id == product.Id);
             if (entity != null)
-            {
-                entity.Update(product.Name, product.Description, product.Price);
-            }
+                entity.UpdateProduct(product.Name, product.Price, product.Description);
             else
                 throw new ApplicationException("El producto no fue encontrado");
 
@@ -47,10 +42,9 @@ namespace Bussiness.Services.Implementations
 
         public void DeleteProduct(int id)
         {
-            
-            var element = ProductList.FirstOrDefault(p => p.Id == id);
-            if (element != null)
-                ProductList.Remove(element);
+            var entity = ProductList.FirstOrDefault(p => p.Id == id);
+            if (entity != null)
+                ProductList.Remove(entity);
             else
                 throw new ApplicationException("El producto no fue encontrado");
         }

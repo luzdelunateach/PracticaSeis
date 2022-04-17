@@ -8,7 +8,7 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        
+        #region Servicios
         private readonly IProductService _productService;
         private readonly IDepartmentService _departmentService;
         private readonly IReportService _reportService;
@@ -25,7 +25,8 @@ namespace eShop
             _shoppingCartService = new ShoppingCartService();
             _requestService = new RequestService();
         }
-        #region MenuPrincipal
+        #endregion
+        #region MenuClienteoAdiministrador
         public bool MenuClienteAdministrador()
         {
             Console.Clear();
@@ -110,20 +111,18 @@ namespace eShop
             var descripcion = Console.ReadLine();
             Console.WriteLine("Marca");
             var maraca = Console.ReadLine();
-            Console.WriteLine("SKU");
+            Console.WriteLine("Sku");
             var sku = Console.ReadLine();
 
             Console.WriteLine("Elige el departamento:");
-            // Mostrar los departamentos
-            var subdepartement = SolicitarSubdepartamento();
+            
+            var subdepartement = MostrarSubdepartamento();
             try
             {
-
                 if (!Decimal.TryParse(precio, out decimal precioAux))
                 {
-                    throw new ApplicationException("El precio es inválido");
+                    throw new ApplicationException("Ingresar una precio valido");
                 }
-
                 var product = new Product(nombre, precioAux, descripcion, maraca, sku, null);
                 product.AddSubdepartment(subdepartement);
                 _productService.AddProduct(product);
@@ -140,14 +139,10 @@ namespace eShop
         {
             Console.WriteLine("Ingresa el Id para editar un producto");
             Console.WriteLine("Id");
-            var id = Console.ReadLine();
+            var id = IntentarObtenerInt(Console.ReadLine());
             try
             {
-                if (!int.TryParse(id, out int idAux))
-                {
-                    throw new ApplicationException("No se puede castear el ID correctamente");
-                }
-                var product = _productService.GetProduct(idAux);
+                var product = _productService.GetProduct(id);
                 Console.WriteLine("Ingrese el nuevo nombre del producto: ");
                 var n = Console.ReadLine();
                 if (String.IsNullOrEmpty(n))
@@ -164,11 +159,9 @@ namespace eShop
                 var p = Console.ReadLine();
                 if (!decimal.TryParse(p, out decimal priceAux))
                 {
-                    throw new ApplicationException("El precio es inválido");
+                    throw new ApplicationException("Ingresar una precio valido");
                 }
-
-                var productTwo = new Product(n, priceAux, d, product.Brand, product.Sku,idAux);
-
+                var productTwo = new Product(n, priceAux, d, product.Brand, product.Sku,id);
                 _productService.UpdateProduct(productTwo);
             }
             catch (Exception ex)
@@ -197,63 +190,47 @@ namespace eShop
 
         private void ConsultarProducto()
         {
-            Console.WriteLine("Proporciona el ID del producto que deseas consultar");
+            Console.WriteLine("Ingrese el ID del producto que deseas consultar");
             Console.WriteLine("Id:");
-            var id = Console.ReadLine();
-
-            if (!Int32.TryParse(id, out int idAux))
-                throw new ApplicationException("No se pudo castear el ID correctamente");
-
-            var prod = _productService.GetProduct(idAux);
+            var id = IntentarObtenerInt(Console.ReadLine());
+            var prod = _productService.GetProduct(id);
             Console.WriteLine(prod.ToString());
         }
 
         private void EliminarProducto()
         {
-            Console.WriteLine("Proporciona el ID del producto que deseas eliminar");
+            Console.WriteLine("Ingrese el ID del producto que desea eliminar");
             Console.WriteLine("Id:");
-            var id = Console.ReadLine();
-
-            try
-            {
-                if (!Int32.TryParse(id, out int idAux))
-                    throw new ApplicationException("No se pudo castear el ID correctamente");
-
-                _productService.DeleteProduct(idAux);
-                Console.WriteLine("Producto eliminado correctamente.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            var id = IntentarObtenerInt(Console.ReadLine());
+            _productService.DeleteProduct(id);
+            Console.WriteLine("Producto eliminado exitosamente");
         }
 
-        private Subdepartment SolicitarSubdepartamento()
+        private Subdepartment MostrarSubdepartamento()
         {
-            Console.WriteLine("Elige el departamento");
+            Console.WriteLine("Ingresa el numero del departamento");
             var departments = _departmentService.GetDepartments();
             for (int i = 0; i < departments.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {departments.ElementAt(i).Name}");
+                Console.WriteLine($"No: {i + 1}. {departments.ElementAt(i).Name}");
             }
+            var noDeparment = IntentarObtenerInt(Console.ReadLine());
+            var department = departments.ElementAt(noDeparment - 1);
 
-            var departmentPosition = IntentarObtenerInt(Console.ReadLine());
-            var department = departments.ElementAt(departmentPosition - 1);
-
-            Console.WriteLine($"Elige el subdepartamento de {department.Name}");
+            Console.WriteLine($"Ingresa el numero subdepartamento de {department.Name}");
             for (int i = 0; i < department.Subdeparments.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {department.Subdeparments.ElementAt(i).Name}");
+                Console.WriteLine($"No: {i + 1}. {department.Subdeparments.ElementAt(i).Name}");
             }
-            var subdepartmentPosition = IntentarObtenerInt(Console.ReadLine());
-            var subdepartment = department.Subdeparments.ElementAt(subdepartmentPosition - 1);
+            var noSubdeparment = IntentarObtenerInt(Console.ReadLine());
+            var subdepartment = department.Subdeparments.ElementAt(noSubdeparment - 1);
             subdepartment.Department = department;
             return subdepartment;
         }
 
-        private static int IntentarObtenerInt(string input)
+        private static int IntentarObtenerInt(string element)
         {
-            return Int32.TryParse(input, out int posicion) ? posicion : throw new ApplicationException("No se pudo castear el id correctamente");
+            return Int32.TryParse(element, out int result) ? result : throw new ApplicationException("Error, el ID ingresado no se puede castear");
         }
         #endregion
 

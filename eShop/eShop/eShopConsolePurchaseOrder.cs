@@ -9,13 +9,12 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        
         private List<Provider> ProvidersList = TestData.GetProviders();
         private List<Product> ProductList = TestData.ProductList;
         private void MenuOrdenesDeCompra()
         {
             Console.Clear();
-            Console.WriteLine("Elige una opción");
+            Console.WriteLine("Elige una opcion");
             Console.WriteLine("1. Agregar orden de compra");
             Console.WriteLine("2. Ver ordenes de compra");
             Console.WriteLine("3. Cambiar estatus");
@@ -28,7 +27,7 @@ namespace eShop
             switch (Console.ReadLine())
             {
                 case "1":
-                    AddPurchaseOrder();
+                    AgregarOrdenCompra();
                     break;
                 case "2":
                     ConsultarOrdenesDeCompra();
@@ -54,7 +53,7 @@ namespace eShop
             }
         }
 
-        private void AddPurchaseOrder()
+        private void AgregarOrdenCompra()
         {
             List<Product> PurchasedProductList = new List<Product>();
             Console.WriteLine("Elige al proveedor");

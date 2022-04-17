@@ -44,14 +44,6 @@ namespace Data.Entities
             Sku = sku;
             Stock = stock;
         }
-
-        public void Update(string name, string description, decimal price)
-        {
-            Name = name;
-            Description = description;
-            Price = price;
-        }
-
         public void AddSubdepartment(Subdepartment subdepartment)
         {
             if (subdepartment == null)
@@ -60,12 +52,11 @@ namespace Data.Entities
             Subdepartment = subdepartment;
         }
 
-        public void UpdateProduct(string name, decimal price, string description, string brand)
+        public void UpdateProduct(string name, decimal price, string description)
         {
             Name = name;
             Price = price;
             Description = description;
-            Brand = brand;
         }
 
         public void UpdateStock(int stock)

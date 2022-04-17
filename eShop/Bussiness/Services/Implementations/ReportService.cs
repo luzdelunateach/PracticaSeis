@@ -15,7 +15,7 @@ namespace Bussiness.Services.Implementations
         private PurchaseOrderService _purchaseOrderService = new PurchaseOrderService();
         
 
-        public List<ProductReportDto> Top5ExpensiveProductsOrderedByPrice()
+        public List<ProductReportDto> ReportFiveExpensiveProducts()
         {
             return ProductList
                 .OrderByDescending(c => c.Price)
@@ -27,7 +27,7 @@ namespace Bussiness.Services.Implementations
                 }).ToList();
         }
 
-        public List<ProductReportDto> Products5orLessUnitsOrderedByUnits()
+        public List<ProductReportDto> ReportFiveProductsorLess()
         {
             return ProductList
                 .Where(prod => prod.Stock < 5)
@@ -40,7 +40,7 @@ namespace Bussiness.Services.Implementations
                 }).ToList();
         }
 
-        public List<ProductReportDto> ProductsByBrandOrderedByProductName()
+        public List<ProductReportDto> ReportProductsByBrand()
         {
             return ProductList
                 .OrderBy(c => c.Brand)
@@ -52,16 +52,16 @@ namespace Bussiness.Services.Implementations
                 }).ToList();
         }
 
-        public List<DepartmentSubdepartmentProductReportDto> GroupDepartmentGroupSubdepartmentProducts()
+        public List<DepartmentSubdepartmentReportDto> ReportSubdepartmentProducts()
         {
             return DepartmentList
                 .GroupBy(d => d.Name)
-                .Select(d => new DepartmentSubdepartmentProductReportDto
+                .Select(d => new DepartmentSubdepartmentReportDto
                 {
                     Department = d.Key,
-                    Subdepartaments = DepartmentList.Where(de => de.Name == d.Key).First().Subdeparments
+                    Subdepartaments = DepartmentList.Where(dp => dp.Name == d.Key).First().Subdeparments
                         .GroupBy(s => s.Name)
-                        .Select(s => new SubdepartmentProductReportDto
+                        .Select(s => new SubdepartmentReportDto
                         {
                             Subdepartment = s.Key,
                             Productos = ProductList.Where(p => p.Subdepartment.Name == s.Key)

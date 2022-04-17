@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Bussiness.Models
 {
-    public class DepartmentSubdepartmentProductReportDto
+    public class DepartmentSubdepartmentReportDto
     {
         public string Department { get; set; }
-        public List<SubdepartmentProductReportDto> Subdepartaments { get; set; }
+        public List<SubdepartmentReportDto> Subdepartaments { get; set; }
     }
 }

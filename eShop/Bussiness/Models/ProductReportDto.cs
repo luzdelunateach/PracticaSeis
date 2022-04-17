@@ -12,6 +12,5 @@ namespace Bussiness.Models
         public string Sku { get; set; }
         public string Description { get; set; }
         public string Brand { get; set; }
-        public List<Product> Productos { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace eShop
         private void MenuCliente()
         {
             Console.Clear();
-            Console.WriteLine("Elige una opción");
+            Console.WriteLine("Elige una opcion");
             Console.WriteLine("1. Agregar productos al carrito");
             Console.WriteLine("2. Ver carrito");
             Console.WriteLine("3. Eliminar producto del carrito");
@@ -51,7 +51,6 @@ namespace eShop
         {
             List<Product> listShopProducts = new List<Product>();
             bool seguir = true;
-            
             while(seguir)
             {
                     ConsultarProductosStock();
@@ -143,10 +142,10 @@ namespace eShop
             var list = _requestService.GetRequest();
             list.ForEach(p =>
             {
-                Console.WriteLine($"No de Pedido:{p.Id}\t Fecha:{p.PurchaseDate}\t Total:{p.Total}");
+                Console.WriteLine($"No de Pedido:{p.Id}\t Fecha:{p.PurchaseDate}\t Total:{p.Total:C}");
                 p.ShoppingCarts.ListProducts.ForEach(p =>
                 {
-                    Console.WriteLine($"Id: {p.Id} \tProducto: {p.Name} Precio: {p.Price:C}\n");
+                    Console.WriteLine($"Id: {p.Id} \tProducto: {p.Name} \tPrecio: {p.Price:C}\n");
                 });
             });
         }

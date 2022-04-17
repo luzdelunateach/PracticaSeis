@@ -6,7 +6,6 @@ namespace Data.Entities
 {
     public class Department
     {
-        //public int Id { get; set; }
         public string Name { get; private set; }
         public List<Subdepartment> Subdeparments { get; private set; }
 
