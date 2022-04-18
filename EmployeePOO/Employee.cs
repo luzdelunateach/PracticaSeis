@@ -7,49 +7,71 @@ namespace EmployeePOO
 {
     class Employee : User
     {
-        public DateTime DateIni { get; set; }
-        public string? Role { get; set; }
+        static User userMethods = new User();
         public List<Activity> ListActivities { get; set; } = new List<Activity>();
 
-        public Employee(int Id, string UserName, string Password, DateTime dateIni, string role, List<Activity> ListActivities):base(Id,UserName,Password)
+        public Employee()
         {
-            this.DateIni = dateIni;
-            this.Role = role;
+
+        }
+
+        public Employee(int Id, string UserName, string Password, DateTime DateIni, string Role, List<Activity> ListActivities):base(Id,UserName,Password,DateIni,Role)
+        {
+           
             this.ListActivities = ListActivities;
         }
-
-        static Employee()
-        {
-
+        public void MenuWorker()
+         {
+            Console.Clear();
+            Console.WriteLine("Worker\n");
+            Console.WriteLine("Main \n1.Add Activitys\n2.Exit ");
+            var op = Console.ReadLine();
+            if (!Int32.TryParse(op, out int opcion))
+            {
+                Console.WriteLine("Please insert an integer");
+            }
+            else
+            {
+                switch (opcion)
+                {
+                    case 1:
+                        AddActivity();
+                        break;
+                    case 2:
+                        ClosedSession();
+                        break;
+                }
+                
+            }
         }
 
-        public static void AddActivity(string description, int hour, int id)
+        public static void AddActivity()
         {
-            //Console.WriteLine("User to add activity: ");
-            //var userE = Console.ReadLine();
-            //var worker = DataBase.activityE.FirstOrDefault(x => x.Id == id);
-            /*if (worker != null)
+            Console.WriteLine("User to add activity: ");
+            var userE = Console.ReadLine();
+            var idAux = userMethods.IdUserInSesion();
+            var worker = DataBase.activityE.FirstOrDefault(x => x.Id == idAux);
+            if (worker != null)
             {
                 Console.WriteLine("Add de description: ");
                 var description = Console.ReadLine();
                 Console.WriteLine("Total of working hours: ");
                 var hour = Console.ReadLine();
                 if (!Int32.TryParse(hour, out int h))
-                {
                     Console.WriteLine("Please insert an integer");
-
-                }
                 else
                 {
-                    worker.ListActivities.Add(
-                        new Activity() { Description = description, Date = DateTime.Today, Hours = h }
-                    );
+                    DataBase.activityE.Add(
+                        new Activity(description, DateTime.Today, h, false, idAux)
+                    ); 
                 }
 
-            }*/
-            Activity a = new Activity(description, DateTime.Today, hour, false, id);
-            DataBase.activityE.Add(a);
+            }
+        }
 
+        public void ClosedSession()
+        {
+            Environment.Exit(0);
         }
     }
 }

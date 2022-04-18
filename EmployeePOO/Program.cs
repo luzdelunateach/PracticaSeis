@@ -6,73 +6,16 @@ namespace EmployeePOO
 {
     class Program
     {
-        static int userSesionSeed = 0;
+        
+        static User userMethods = new User();
         static void Main(string[] args)
         {
-            Login();
-        }
-
-        public static void Login()
-        {
+            
             Console.WriteLine("¡Good Morning!");
-            var u = ReadUser();
-            var p = ReadPassword();
-
-            var e = FindUser(u,p);
-            if (e != null)
-            {
-                Console.WriteLine($"Bienvenido usuario:{e.UserName}");
-                userSesionSeed = e.Id;
-            }
+            userMethods.Login();
         }
-
-        public static User FindUser(string user, string password)
-        {
-            var e = DataBase.employees.FirstOrDefault(x => x.UserName == user && x.Password == password);
-            return e;
-        }
-
-        static string ReadUser()
-        {
-            bool valid = false;
-            string user = "";
-            do
-            {
-                Console.WriteLine("Please, Insert your User");
-                user = Console.ReadLine();
-                if (string.IsNullOrEmpty(user))
-                {
-                    Console.WriteLine("Please insert a correct user");
-                }
-                else
-                {
-                    valid = true;
-                }
-            } while (valid!=true);
-
-            return user;
-        }
-
-        static string ReadPassword()
-        {
-            bool valid = false;
-            string password = "";
-            do
-            {
-                Console.WriteLine("Password: ");
-                password = Console.ReadLine();
-                if (string.IsNullOrEmpty(password))
-                {
-                    Console.WriteLine("Please insert a correct password");
-                }
-                else
-                {
-                    valid = true;
-                }
-            } while (valid != true);
-
-            return password;
-        }
+        
+       
 
         //hacer un pull request
 
