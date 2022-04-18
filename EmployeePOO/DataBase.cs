@@ -13,8 +13,8 @@ namespace EmployeePOO
         };
         public static  List<User> user = new List<User>() {
                 new Employee(1,"pablo1","pablo22",new DateTime(1995,3,25),"worker", activityE),
-                new Employee(3,"luna1","luna22",new DateTime(1995,3,25),"worker", activityE),
-                new Manager(2,"juan1","juan3",new DateTime(1995,3,25),"supervisor")
+                new Manager(2,"juan1","juan3",new DateTime(1995,3,25),"supervisor"),
+                new Employee(3,"luna1","luna22",new DateTime(1995,3,25),"worker", activityE)
         };
     }
 
