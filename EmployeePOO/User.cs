@@ -12,6 +12,7 @@ namespace EmployeePOO
         public string Password { get; set; }
         public DateTime DateIni { get; set; }
         public string? Role { get; set; }
+        public List<Activity> ListActivities { get; set; } = new List<Activity>();
 
         public int  _idSeed = 4;
 
@@ -24,18 +25,19 @@ namespace EmployeePOO
 
         }
 
-        public User(int? Id, string UserName, string Password, DateTime DateIni, string Role)
+        public User(int Id, string UserName, string Password, DateTime DateIni, string Role, List<Activity> ListActivities)
         {
             if(UserName == null)
                 throw new ArgumentNullException("El usuario no puede estar vacio.");
             if(Password == null)
                 throw new ArgumentNullException("El password no puede estar vacio.");
 
-            this.Id = _idSeed++;
+            this.Id = Id;
             this.UserName = UserName;
             this.Password = Password;
             this.DateIni = DateTime.Today;
             this.Role = Role;
+            this.ListActivities = ListActivities;
         }
 
         public void Login()

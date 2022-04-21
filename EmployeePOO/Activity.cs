@@ -12,13 +12,16 @@ namespace EmployeePOO
         public bool Valid { get; set; }
         public int Id { get; set; }
 
-        public Activity(string Description, DateTime Date, int Hour, bool Valid, int Id )
+        public int IdProject { get; set; }
+
+        public Activity(string Description, DateTime Date, int Hour, bool Valid, int Id, int IdProject )
         {
             this.Description = Description;
             this.Date = Date;
             this.Hours = Hour;
             this.Valid = Valid;
             this.Id = Id;
+            this.IdProject = IdProject;
         }
     }
 }
