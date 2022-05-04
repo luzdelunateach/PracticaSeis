@@ -1,0 +1,47 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Sku</th>
+                    </tr>
+                </thead>
+                <tbody id="ListProducts">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        var isBusy = false;
+        $(function () {
+            $('#ListProducts').html("<div class='text-center'><i class='fa fa-hurricane fa-spin'></i></div>");
+            loadProducts();
+        });
+        function loadProducts() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/product/',
+                data: 'json',
+                contentType: 'application/json',
+                success: function (product) {
+                    //let articles = JSON.parse(data);
+                    var html = '';
+                    for (var i in product) {
+                        html += '<tr><td>' + product[i].name + '</td><td>' + product[i].stock + '</td><td>' + product[i].price + '</td><td>' + product[i].sku +'</td></tr>';
+                    }
+                    $('#ListProducts').html(html);
+                },
+                error: function (data) {
+                    console.log(data);
+                    alert('Ocurrió un error inesperado');
+                }
+            });
+        }
+    </script>
+}

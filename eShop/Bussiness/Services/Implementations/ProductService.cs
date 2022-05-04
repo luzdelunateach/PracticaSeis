@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Bussiness.Models;
 using Bussiness.Services.Abstractions;
 using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bussiness.Services.Implementations
 {
@@ -34,7 +36,7 @@ namespace Bussiness.Services.Implementations
                 throw new Exception(ex.Message);
             }
         }
-        public List<ProductDto> GetAll()
+        public async Task<List<ProductDto>> GetAll()
         {
             var products = _context.Products.Select(p => new ProductDto
             {
@@ -47,12 +49,9 @@ namespace Bussiness.Services.Implementations
                 Brand = p.Brand,
                 SudepartmentName = p.Subdepartment.Name,
                 DepartmentName = p.Subdepartment.Department.Name
-            }).ToList();
+            }).ToListAsync();
 
-            if (!products.Any())
-                throw new Exception("No hay productos.");
-
-            return products;
+            return await products;
         }
 
         public List<ProductDto> GetStockProducts()
