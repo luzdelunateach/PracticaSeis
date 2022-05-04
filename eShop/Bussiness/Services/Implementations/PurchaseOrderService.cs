@@ -25,9 +25,9 @@ namespace Bussiness.Services.Implementations
 
         public void UpdateProductListStock(PurchaseOrder purchaseOrder)
         {
-            purchaseOrder.PurchasedProducts.ForEach(pP =>
+            /*purchaseOrder.PurchasedProducts.ForEach(pP =>
             {
-                var originalProduct = TestData.ProductList.Where(pl => pl.Id == pP.Id).FirstOrDefault();
+                var originalProduct = 0;
                 if (originalProduct != null)
                 {
                     originalProduct.UpdateStock(originalProduct.Stock + pP.Stock);
@@ -36,7 +36,7 @@ namespace Bussiness.Services.Implementations
                 {
                     throw new ApplicationException("No se encuentra el producto");
                 }
-            });
+            });*/
         }
     }
 }

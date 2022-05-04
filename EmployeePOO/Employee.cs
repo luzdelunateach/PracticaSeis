@@ -8,7 +8,7 @@ namespace EmployeePOO
     class Employee : User
     {
         static User userMethod = new User();
-
+        static ProjectUser projectUserMethods = new ProjectUser();
         public Employee()
         {
 
@@ -52,7 +52,9 @@ namespace EmployeePOO
 
         public static void AddActivity()
         {
-           
+            int _userSesionSeed = userMethod.IdUserInSesion();
+            Console.WriteLine("List of the Projects: ");
+            projectUserMethods.ConsultProjectUser(_userSesionSeed);
             var idAux = userMethod.IdUserInSesion();
             var worker = DataBase.activityE.FirstOrDefault(x => x.Id == idAux);
             Console.WriteLine("Add de description: ");
@@ -60,16 +62,21 @@ namespace EmployeePOO
             Console.WriteLine("Total of working hours: ");
             var hour = Console.ReadLine();
             if (!Int32.TryParse(hour, out int h))
-                    Console.WriteLine("Please insert an integer");
+                    Console.WriteLine("Please insert a number");
             else
             {
-               DataBase.activityE.Add(
-                   new Activity(description, DateTime.Today, h, false, idAux,1)
-               );
-                Console.Write("Congrats!");
+                
+                Console.Write("\nWrite de id of the project that you workin on: ");
+                var idP = Console.ReadLine();
+                if (!Int32.TryParse(idP, out int idProjectAux))
+                    Console.WriteLine("Please insert a number");
+                else
+                {
+                    DataBase.activityE.Add(new Activity(description, DateTime.Today, h, false, idAux, idProjectAux));
+                    Console.WriteLine("Congrats!");
+                }
             }
         }
-
         public static void ConsultActivities()
         {
             var idAux = userMethod.IdUserInSesion();
@@ -78,12 +85,13 @@ namespace EmployeePOO
             var act = DataBase.activityE.Where(a => a.Id == emp.Id && a.Valid == false);
             foreach (var i in act)
             {
-                Console.WriteLine($"Descripcion: {i.Description}\tFecha: {i.Date}\tHoras: {i.Hours}\n");
+                Console.WriteLine($"Descripcion: {i.Description}\tFecha: {i.Date}\tHoras: {i.Hours}\tId Project: {i.IdProject}\n");
             }
         }
         public void ClosedSession()
         {
             Environment.Exit(0);
         }
+        
     }
 }

@@ -1,48 +1,34 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
 namespace Data.Entities
 {
     public class Product
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int Stock { get; private set; }
-        public decimal Price { get; private set; }
-        public string Sku { get; private set; }
-        public string Description { get; private set; }
-        public string Brand { get; private set; }
-        public Subdepartment Subdepartment { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Stock { get; set; }
+        public decimal Price { get; set; }
+        public string Sku { get; set; }
+        public string Description { get; set; }
+        public string Brand { get; set; }
+        public virtual Subdepartment Subdepartment { get; set; }
+        public virtual ICollection<PurchaseOrderProviderDetail> PurchaseOrderProviderDetails { get; set; }
 
-        private int _idSeed = 4;
-
-        public Product(string name, decimal price, string description, string brand, string sku, int? id, int stock = 1)
+        public Product()
         {
-            if (price < 0)
-                throw new InvalidOperationException("El precio no puede ser menor a cero.");
 
-            if (stock <= 0)
-                throw new InvalidOperationException("El stock tiene que ser mayor a uno.");
-
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("El nombre no puede ser vacio");
-
-            if (string.IsNullOrEmpty(description))
-                throw new ArgumentNullException("La descripción no puede ser vacia");
-
-            if (string.IsNullOrEmpty(brand))
-                throw new ArgumentNullException("La marca no puede ser vacia");
-
-            if (string.IsNullOrEmpty(sku))
-                throw new ArgumentNullException("El sku no puede ser vacio");
-
-            Id = id ?? _idSeed++;
+        }
+        public Product(string name, int stock, decimal price, string sku, string description, string brand, Subdepartment? subdepartment)
+        {
+            
             Name = name;
+            Stock = stock;
             Price = price;
+            Sku = sku;
             Description = description;
             Brand = brand;
-            Sku = sku;
-            Stock = stock;
+            Subdepartment = subdepartment;
         }
         public void AddSubdepartment(Subdepartment subdepartment)
         {

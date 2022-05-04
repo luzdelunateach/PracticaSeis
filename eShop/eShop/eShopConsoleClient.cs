@@ -22,7 +22,7 @@ namespace eShop
             Console.WriteLine("5. Ver Pedido");
             Console.WriteLine("6. Regresar");
 
-            switch (Console.ReadLine())
+            /*switch (Console.ReadLine())
             {
                 case "1":
                     AgregarProductoCarrito();
@@ -42,12 +42,12 @@ namespace eShop
                 case "6":
                 default:
                     return;
-            }
+            }*/
            
         }
         #endregion
         #region CRUD
-        private void AgregarProductoCarrito()
+        /*private void AgregarProductoCarrito()
         {
             List<Product> listShopProducts = new List<Product>();
             bool seguir = true;
@@ -148,7 +148,7 @@ namespace eShop
                     Console.WriteLine($"Id: {p.Id} \tProducto: {p.Name} \tPrecio: {p.Price:C}\n");
                 });
             });
-        }
+        }*/
         #endregion
     }
 }

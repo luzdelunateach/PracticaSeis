@@ -30,7 +30,10 @@ namespace EmployeePOO
             new Project(3,"Projecto3",new DateTime(2021,3,14),"El tercero proyecto"),
             new Project(4,"Projecto4",new DateTime(2021,4,15),"El cuarto proyecto")
         };
+
+        public static List<ProjectUser> UserProjectSeed = new List<ProjectUser>()
+        {
+            new ProjectUser(1,1,1)
+        };
     }
-
-
 }

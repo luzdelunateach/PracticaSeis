@@ -26,7 +26,7 @@ namespace EmployeePOO
             {
                 //Console.Clear();
                 Console.WriteLine("Manager\n");
-                Console.WriteLine("Main\n1.Add Worker\n2.Consultar Worker\n3.Edit Worker\n4.Delete Worker\n5.Check Activitys\n6.Menu Projects\n6.Exit");
+                Console.WriteLine("Main\n1.Add Worker\n2.Consultar Worker\n3.Edit Worker\n4.Delete Worker\n5.Add project to user\n6.Check Activitys\n7.Menu Projects\n8.Exit");
 
                 var res = Console.ReadLine();
 
@@ -52,12 +52,15 @@ namespace EmployeePOO
                             DeleteWorker();
                             break;
                         case 5:
-                            ValidateTask();
+                            AddProjectToUser();
                             break;
                         case 6:
-                            projectMethod.MenuProjects();
+                            ValidateTask();
                             break;
                         case 7:
+                            projectMethod.MenuProjects();
+                            break;
+                        case 8:
 
                         default:
                             break;
@@ -141,7 +144,41 @@ namespace EmployeePOO
             }
 
         }
-
+        public void AddProjectToUser()
+        {
+            Console.WriteLine("***Add project to user***");
+            Console.WriteLine("***Users***");
+            ConsultarWorker();
+            Console.WriteLine("***Projects***");
+            projectMethod.ConsultProject();
+            Console.WriteLine("Write id of the project");
+            Console.Write("Id Project: ");
+            var idP = Console.ReadLine();
+            if (!Int32.TryParse(idP, out int idPAux))
+            {
+                Console.WriteLine("Please insert an integer");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Write id of the user");
+                Console.Write("Id Project: ");
+                var idU = Console.ReadLine();
+                if (!Int32.TryParse(idU, out int idUAux))
+                {
+                    Console.WriteLine("Please insert an integer");
+                    return;
+                }
+                else
+                {
+                    var id = DataBase.UserProjectSeed.Last().Id + 1;
+                    ProjectUser ProjectUser = new ProjectUser(id, idUAux, idPAux);
+                    DataBase.UserProjectSeed.Add(ProjectUser);
+                    Console.WriteLine("¡You added a new project to a worker!");
+                }
+            }
+            
+        }
         public static void ValidateTask()
         {
             Console.WriteLine("User to validate Task: ");

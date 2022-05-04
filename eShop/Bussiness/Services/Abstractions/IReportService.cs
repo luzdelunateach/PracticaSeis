@@ -7,13 +7,13 @@ namespace Bussiness.Services.Abstractions
 {
     public interface IReportService
     {
-        public List<ProductReportDto> ReportFiveExpensiveProducts();
-        public List<ProductReportDto> ReportFiveProductsorLess();
-        public List<ProductReportDto> ReportProductsByBrand();
-        public List<DepartmentSubdepartmentReportDto> ReportSubdepartmentProducts();
-        public List<PurchaseOrder> ReportLastSevenDays();
-        public List<PurchaseOrder> ReportPurchaseOrdersChair();
-        public List<PurchaseOrder> ReportLevisPurchaseOrders();
-        public Product ReportMorePurchasedProduct();
+        List<ProductDto> ProductsByBrand();
+        List<ProductDto> ProductsOrderedByUnits();
+        List<ProductDto> Top5ExpensiveProducts();
+        public List<ProductDto> ProductsByDepartment();
+        public List<OrderProviderDto> Last7DaysOrders();
+        public List<OrderProviderDto> PurchaseOrdersChair();
+        public List<OrderProviderDto> PurchaseOrdersSalchichonPending();
+        public List<OrderProviderDto> MorePurchasedUnits();
     }
 }

@@ -3,37 +3,26 @@ namespace Data.Entities
 {
     public class Provider
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public string Address { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string EmailAddress { get; private set; }
-        public string City { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+        public string City { get; set; }
 
-        public Provider(int id, string name, string emailAddress)
+        public Provider()
         {
-            if (id <= 0)
-                throw new ArgumentException("El ID tiene que ser mayor a 0");
 
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("El nombre no puede ser vacío");
-
-            if (string.IsNullOrEmpty(emailAddress))
-                throw new ArgumentNullException("El email no puede ser vacío");
-
-            try
-            {
-                var email = new System.Net.Mail.MailAddress(emailAddress);
-                EmailAddress = emailAddress;
-            }
-            catch (FormatException)
-            {
-                throw new ArgumentNullException("El correo no es válido");
-            }
-
-            Id = id;
-            Name = name;
         }
+        public Provider(string name, string address, string phoneNumber, string emailAddress, string city)
+        {
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            EmailAddress = emailAddress;
+            City = city;
+        }
+
 
         public void AddAddress(string address, string city)
         {

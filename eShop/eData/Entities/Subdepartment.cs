@@ -5,18 +5,20 @@ namespace Data.Entities
 {
     public class Subdepartment
     {
-        //public int Id { get; set; }
-        public string Name { get; private set; }
-        public Department Department { get; set; }
-        public List<Product> Products { get; set; } //= new() || new List<Product>() ;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual Department Department { get; set; }
 
-        public Subdepartment(string name)
+        public Subdepartment()
         {
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("El nombre no puede ser vacio.");
 
+        }
+        public Subdepartment(string name, ICollection<Product> products)
+        {
+            
             Name = name;
-            Products = new List<Product>();
+            Products = products;
         }
 
         public void AddProduct(Product product)

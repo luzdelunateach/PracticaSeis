@@ -5,7 +5,7 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        #region MenuReportes
+        /*#region MenuReportes
         private void MenuDeReportes()
         {
             Console.Clear();
@@ -34,12 +34,12 @@ namespace eShop
                 default:
                     return;
 
-            }
-        }
+    }
+}
         #endregion
 
         #region Reportes
-        private void FiveExpensiveProducts()
+       /* private void FiveExpensiveProducts()
         {
             var listProducts = _reportService.ReportFiveExpensiveProducts();
 
@@ -85,6 +85,6 @@ namespace eShop
             }
 
         }
-        #endregion
+        #endregion*/
     }
 }

@@ -13,7 +13,7 @@ namespace Data.Entities
         public Provider Provider { get; set; }
         public List<Product> PurchasedProducts { get; set; }
         public PurchaseOrderStatus Status { get; set; }
-        private int _idSeed = 1;
+
 
         public PurchaseOrder(Provider provider, List<Product> purchasedProducts, DateTime? purchaseDate = null)
         {
@@ -23,7 +23,6 @@ namespace Data.Entities
             if (purchasedProducts == null || !purchasedProducts.Any())
                 throw new ArgumentNullException("Hay que agregar productos a la orden");
 
-            Id = _idSeed++;
             Status = PurchaseOrderStatus.Pending;
             Total = purchasedProducts.Sum(p => p.Price * p.Stock);
             Provider = provider;

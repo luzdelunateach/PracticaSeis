@@ -17,7 +17,7 @@ namespace Data.Entities
             Id = _idSeed++;
             ListProducts = new List<Product>();
         }
-        public ShoppingCart(int? id, List<Product>? listProducts)
+        public ShoppingCart(int id, List<Product> listProducts)
         {
             if ( listProducts == null || !listProducts.Any())
                 throw new InvalidOperationException("No hay listas de Productos");

@@ -13,7 +13,7 @@ namespace EmployeePOO
         public string Description { get; set; }
         public int TotalHours { get; set; }
 
-
+        static User userMethod = new User();
         public Project()
         {
 
@@ -30,7 +30,6 @@ namespace EmployeePOO
             Date = date ?? DateTime.Today;
             TotalHours = 0;
         }
-        static User userMethod = new User();
         public void MenuProjects()
         {
             int _userSesionSeed = userMethod.IdUserInSesion();
@@ -64,7 +63,6 @@ namespace EmployeePOO
                             DeleteProject();
                             break;
                         case 5:
-                            break;
                         default:
                             break;
                     }
@@ -102,7 +100,7 @@ namespace EmployeePOO
             Console.WriteLine("Congrats, you added a new project");
         }
 
-        public static void ConsultProject()
+        public void ConsultProject()
         {
             var lista = DataBase.projectSeed;
             foreach (var e in lista)

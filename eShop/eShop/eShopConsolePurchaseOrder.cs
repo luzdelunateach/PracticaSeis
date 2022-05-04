@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bussiness;
+using Bussiness.Models;
 using Data.Entities;
 using Data.Enums;
 
@@ -9,10 +10,9 @@ namespace eShop
 {
     public partial class eShopConsole
     {
-        private List<Provider> ProvidersList = TestData.GetProviders();
-        private List<Product> ProductList = TestData.ProductList;
-        #region MenuOrdenes
-        private void MenuOrdenesDeCompra()
+
+        /* #region MenuOrdenes
+       private void MenuOrdenesDeCompra()
         {
             Console.Clear();
             Console.WriteLine("Elige una opcion");
@@ -28,172 +28,284 @@ namespace eShop
             switch (Console.ReadLine())
             {
                 case "1":
-                    AgregarOrdenCompra();
+                    AddPurchaseOrder();
                     break;
                 case "2":
-                    ConsultarOrdenesCompra();
+                    ConsultarOrdenesDeCompra();
                     break;
                 case "3":
                     CambiarEstatusOrdenCompra();
                     break;
                 case "4":
-                    OrdenesPagadoUltimosSieteDias();
+                    Last7DaysOrders();
                     break;
                 case "5":
-                    ComprasSilla();
+                    PurchaseOrdersChair();
                     break;
                 case "6":
-                    ComprasPendientesLevis();
+                    PurchaseOrdersSalchichonPending();
                     break;
                 case "7":
-                    ProductosMasComprados();
+                    MorePurchasedUnits();
                     break;
-                case "8":
                 default:
                     return;
             }
         }
         #endregion
         #region CRUDOrdenes
-        private void AgregarOrdenCompra()
+        private void AddPurchaseOrder()
         {
-            List<Product> PurchasedProductList = new List<Product>();
-            Console.WriteLine("Elige al proveedor:");
-            for (int i = 0; i < ProvidersList.Count; i++)
+            var order = new OrderProviderRegestryDto();
+            Console.WriteLine("***Pedido para Resurtir Producto***");
+            try
             {
-                Console.WriteLine($"No: {i+1}. {ProvidersList.ElementAt(i).Name}");
-            }
-            var noProveedor = IntentarObtenerInt(Console.ReadLine());
-            var provider = ProvidersList.ElementAt(noProveedor - 1);
-
-            Console.WriteLine("Elige el producto:");
-            bool seguir = true;
-            while (seguir)
-            {
-                for (int i = 0; i < ProductList.Count; i++)
+                bool seguir = true;
+                while (seguir)
                 {
-                    Console.WriteLine($"No: {i+1}. {ProductList.ElementAt(i).Name } \tPrecio ${ ProductList.ElementAt(i).Price }");
+                    Console.WriteLine("Elige al proveedor");
+                    ConsultarProveedor();
+                    Console.Write("Id: ");
+                    var IdP = IntentarObtenerInt(Console.ReadLine());
+                    order.ProviderId = IdP;
+                    Console.WriteLine("Elige al Producto");
+                    ConsultarProductosElegir();
+                    Console.Write("Id: ");
+                    var IdPro = IntentarObtenerInt(Console.ReadLine());
+                    order.ProductoId = IdPro;
+                    var product = _productService.GetProduct(IdPro);
+                    Console.WriteLine($"\n¿Que cantidad de {product.Name}(s) deseas comprar?");
+                    var cantidad = IntentarObtenerInt(Console.ReadLine());
+                    order.Cantidad = cantidad;
+                    var total = product.Price * cantidad;
+                    order.Total = total;
+                    order.Validation();
+                    _PurchaseOrderProviderService.RegisterOrder(order);
+                    Console.WriteLine("Producto se ha agregado correctamente");
+                    Console.WriteLine("¿Desea agregar otro producto? (s/n)");
+                    var opcion = Console.ReadLine();
+                    seguir = opcion.ToLower().Equals("s") ? true : false;
                 }
-                var noProduct = IntentarObtenerInt(Console.ReadLine());
-                var product = ProductList.ElementAt(noProduct - 1);
-                Console.WriteLine($"\n¿Cuantos {product.Name} deseas comprar?");
-                var cantidad = IntentarObtenerInt(Console.ReadLine());
-                var auxProduct = new Product(product.Name, product.Price, product.Description, product.Brand, product.Sku, product.Id);
-                auxProduct.UpdateStock(cantidad);
-                PurchasedProductList.Add(auxProduct);
-                Console.WriteLine("El producto se ha agregado correctamento\n\n");
-                Console.WriteLine("¿Desea agregar otro producto? (s/n)");
-                var opcion = Console.ReadLine();
-                seguir = opcion.ToLower().Equals("s") ? true : false;
             }
-            PurchaseOrder purchase = new PurchaseOrder(provider, PurchasedProductList, DateTime.Now);
-            _purchaseOrderService.AddPurchaseOrder(purchase);
-            Console.WriteLine("Se ha registrado la orden de compra agregada correctamente");
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
+            }
         }
 
-        private void ConsultarOrdenesCompra()
+        private void ConsultarProveedor()
         {
-            var ordenesList = _purchaseOrderService.GetPurchaseOrders();
-            ordenesList.ForEach(ol =>
+            try
             {
-                Console.WriteLine($"Id:{ol.Id} \tProveedor: {ol.Provider.Name} \tCant.Artículos: {ol.PurchasedProducts.Sum(p => p.Stock)} \tTotal: {ol.Total:C} \tEstatus: {ol.Status}");
-                ol.PurchasedProducts.ForEach(p =>
+                var proveedor = _providerService.GetAll();
+                Console.WriteLine("Productos Disponibles");
+                foreach (var provider in proveedor)
                 {
-                    Console.WriteLine($"\nProducto: {p.Name} \tPrecio: {p.Price:C}\n");
-                });
-            });
+
+                    Console.WriteLine($"Id: {provider.Id}\tNombre: {provider.Name}\tEmail: {provider.Email}\n");
+                    Console.WriteLine("--------------------------------------------------------------------------");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void ConsultarOrdenesDeCompra()
+        {
+            try
+            {
+                var ordenes = _PurchaseOrderProviderService.GetAll();
+                Console.WriteLine("Productos Disponibles");
+                foreach (var orden in ordenes)
+                {
+
+                    Console.WriteLine($"Id: {orden.Id}\tProducto: {orden.ProductName}\tCantidad: {orden.Cantidad}\tPrecio: {orden.Precio:C}\tTotal: {orden.Total:C}\nFecha de Pedido: {orden.PurchaseDate.ToString("d")}\tEstatus: {orden.Status}\n");
+                    Console.WriteLine("--------------------------------------------------------------------------");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
+            }
+        }
+
+        private void ConsultarOrdenesDeCompraEstatus()
+        {
+            try
+            {
+                var ordenes = _PurchaseOrderProviderService.GetAll();
+                Console.WriteLine("Productos Disponibles");
+                foreach (var orden in ordenes)
+                {
+
+                    Console.WriteLine($"Id: {orden.Id}\tProducto: {orden.ProductName}\tCantidad: {orden.Cantidad}\tPrecio: {orden.Precio:C}\tTotal: {orden.Total:C}\nFecha de Pedido: {orden.PurchaseDate.ToString("d")}\tEstatus: {orden.Status}\n");
+                    Console.WriteLine("--------------------------------------------------------------------------");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void CambiarEstatusOrdenCompra()
         {
-            Console.WriteLine("Ingresa el Id, de la orden a cambiar el estatus: ");
-            var poId = IntentarObtenerInt(Console.ReadLine());
-
-            Console.WriteLine("Selecciona el numero de estatus al que quieres cambiar la orden");
-            foreach (var statusE in Enum.GetNames<PurchaseOrderStatus>())
+            Console.WriteLine("***Ordenes de Compra***");
+            Console.WriteLine("¿A cual orden quieres cambiarle el estatus?");
+            ConsultarOrdenesDeCompraEstatus();
+            Console.Write("Ingrese el Id:");
+            var oId = IntentarObtenerInt(Console.ReadLine());
+            Console.WriteLine("¿A cual estatus quieres cambiarlo?");
+            int nl = 0;
+            foreach (var status in Enum.GetNames<PurchaseOrderStatus>())
             {
-                Console.WriteLine(statusE);
+                nl++;
+                Console.WriteLine($"{nl}.{status}\n");
             }
+            Console.Write("Estatus: ");
             var statusAux = Console.ReadLine();
-            PurchaseOrderStatus newStatus;
-            var didParse = Enum.TryParse(statusAux, out newStatus);
-            if (didParse)
+            try
             {
-                var po = _purchaseOrderService.ChangeStatus(poId, newStatus);
-                if (newStatus == PurchaseOrderStatus.Paid)
+                PurchaseOrderStatus newStatus;
+                var didParse = Enum.TryParse(statusAux, out newStatus);
+                if (didParse)
                 {
-                    ActualizarStock(po);
+                    var detail = _PurchaseOrderProviderService.ChangeStatus(oId, newStatus);
+
+                    if (newStatus == PurchaseOrderStatus.Paid)
+                    {
+                        var cantidad = detail.Cantidad;
+                        var producto = detail.ProductId;
+                        _productService.UpdateStock(cantidad, producto);
+                    }
+                    Console.WriteLine("Orden de compra actualizada correctamente");
                 }
-                Console.WriteLine("Orden de compra ha sido actualizada correctamente");
+                else
+                {
+                    Console.WriteLine("El estatus solicitado no existe");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("El estatus solicitado no existe");
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
+            }
+        }
+        private void Last7DaysOrders()
+        {
+            Console.WriteLine("***Reporte***");
+            try
+            {
+                var listOrders = _reportService.Last7DaysOrders();
+
+                foreach (var o in listOrders)
+                {
+                    Console.WriteLine($"Id: {o.Id}\tProducto: {o.ProductName}\tTotal: {o.Total:C}\tEstatus: {o.Status}\tFecha: {o.PurchaseDate.ToString("d")}\tProveedor: {o.ProviderName}\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
             }
         }
 
-        private void ActualizarStock(PurchaseOrder order)
+        private void PurchaseOrdersChair()
         {
-            _purchaseOrderService.UpdateProductListStock(order);
-            Console.WriteLine("El stock se ha actualizado correctamente");
+            Console.WriteLine("***Reporte***");
+            try
+            {
+                var listOrders = _reportService.PurchaseOrdersChair();
+
+                foreach (var o in listOrders)
+                {
+                    Console.WriteLine($"Id: {o.Id}\tProducto: {o.ProductName}\tTotal: {o.Total:C}\tEstatus: {o.Status}\tFecha: {o.PurchaseDate.ToString("d")}\tProveedor: {o.ProviderName}\n");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
+            }
+
         }
 
-        
-        private void OrdenesPagadoUltimosSieteDias()
+        private void PurchaseOrdersSalchichonPending()
         {
-            var orderList = _reportService.ReportLastSevenDays();
-            if (orderList.Any())
+            Console.WriteLine("***Reporte***");
+            try
             {
-                orderList.ForEach(ol =>
+                var listOrders = _reportService.PurchaseOrdersSalchichonPending();
+
+                foreach (var o in listOrders)
                 {
-                    Console.WriteLine($"Id: {ol.Id} \tProveedor: {ol.Provider.Name} \tArticulos: {ol.PurchasedProducts.Sum(p => p.Stock)} \tTotal: {ol.Total:C} \tEstatus: {ol.Status}");
-                });
+                    Console.WriteLine($"Id: {o.Id}\tProducto: {o.ProductName}\tTotal: {o.Total:C}\tEstatus: {o.Status}\tFecha: {o.PurchaseDate.ToString("d")}\tProveedor: {o.ProviderName}\n");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No se encontraron ordenes de compra");
+                Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
+            }
+
         }
-        
-        private void ComprasSilla()
+
+        private void MorePurchasedUnits()
         {
-            var orderList = _reportService.ReportPurchaseOrdersChair();
-            if (orderList.Any())
+            Console.WriteLine("***Reporte***");
+            try
             {
-                orderList.ForEach(ol =>
+                var listOrders = _reportService.MorePurchasedUnits();
+
+                foreach (var o in listOrders)
                 {
-                    Console.WriteLine($"Id: {ol.Id} \tProveedor: {ol.Provider.Name} \tArtiulos: {ol.PurchasedProducts.Sum(p => p.Stock)} \tTotal: {ol.Total:C} \tEstatus: {ol.Status}");
-                });
+                    Console.WriteLine($"Id: {o.Id}\tProducto: {o.ProductName}\tCantidad: {o.Cantidad}\tTotal: {o.Total:C}\tEstatus: {o.Status}\tFecha: {o.PurchaseDate.ToString("d")}\tProveedor: {o.ProviderName}\n");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("No se encontraron las ordenes de compra");
+                Console.WriteLine(ex.Message);
             }
-        }
-      
-        private void ComprasPendientesLevis()
-        {
-            var orderList = _reportService.ReportLevisPurchaseOrders();
-            if (orderList.Any())
+            finally
             {
-                orderList.ForEach(ol =>
-                {
-                    Console.WriteLine($"Id: {ol.Id} \tProveedor: {ol.Provider.Name} \tCant.Artículos: {ol.PurchasedProducts.Sum(p => p.Stock)} \tTotal: {ol.Total:C} \tEstatus: {ol.Status}");
-                });
+                Console.WriteLine("Presiona cualquier tecla para continuar.");
+                Console.ReadLine();
             }
-            else
-            {
-                Console.WriteLine("No se encontraron las ordenes de compra");
-            }
-        }
-        private void ProductosMasComprados()
-        {
-            var product = _reportService.ReportMorePurchasedProduct();
-            if (product != null)
-                Console.WriteLine(product.ToString());
-            else
-                Console.WriteLine("No se encontra el producto");
+
         }
         #endregion
+        */
     }
 }

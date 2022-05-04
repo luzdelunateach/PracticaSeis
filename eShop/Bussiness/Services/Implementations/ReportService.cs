@@ -10,103 +10,51 @@ namespace Bussiness.Services.Implementations
 {
     public class ReportService : IReportService
     {
-        private List<Product> ProductList = TestData.ProductList;
-        private List<Department> DepartmentList = TestData.DepartmentList;
-        private PurchaseOrderService purchaseOrderService = new PurchaseOrderService();
-        
+        private readonly AppDbContext _context;
 
-        public List<ProductReportDto> ReportFiveExpensiveProducts()
+        public ReportService(AppDbContext context)
         {
-            return ProductList
-                .OrderByDescending(c => c.Price)
-                .Take(5)
-                .Select(c => new ProductReportDto
-                {
-                    Name = c.Name,
-                    Price = c.Price
-                }).ToList();
+            _context = context;
         }
 
-        public List<ProductReportDto> ReportFiveProductsorLess()
+        public List<OrderProviderDto> Last7DaysOrders()
         {
-            return ProductList
-                .Where(prod => prod.Stock < 5)
-                .OrderBy(prod => prod.Price)
-                .Select(c => new ProductReportDto
-                {
-                    Name = c.Name,
-                    Price = c.Price,
-                    Stock = c.Stock
-                }).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<ProductReportDto> ReportProductsByBrand()
+        public List<OrderProviderDto> MorePurchasedUnits()
         {
-            return ProductList
-                .OrderBy(c => c.Brand)
-                .ThenBy(c => c.Name)
-                .Select(c => new ProductReportDto
-                {
-                    Name = c.Name,
-                    Brand = c.Brand
-                }).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<DepartmentSubdepartmentReportDto> ReportSubdepartmentProducts()
+        public List<ProductDto> ProductsByBrand()
         {
-            return DepartmentList
-                .GroupBy(d => d.Name)
-                .Select(d => new DepartmentSubdepartmentReportDto
-                {
-                    Department = d.Key,
-                    Subdepartaments = DepartmentList.Where(dp => dp.Name == d.Key).First().Subdeparments
-                        .GroupBy(s => s.Name)
-                        .Select(s => new SubdepartmentReportDto
-                        {
-                            Subdepartment = s.Key,
-                            Productos = ProductList.Where(p => p.Subdepartment.Name == s.Key)
-                                .Select(pd => new ProductReportDto {
-                                    Name = pd.Name,
-                                    Price = pd.Price
-                                }).ToList()
-                        }).ToList()
-                }).ToList();
+            throw new NotImplementedException();
         }
 
-        public List<PurchaseOrder> ReportLastSevenDays()
+        public List<ProductDto> ProductsByDepartment()
         {
-            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
-            return purchaseOrders
-                .Where(pOL => pOL.PurchaseDate >= DateTime.Now.AddDays(-7) && pOL.Status == PurchaseOrderStatus.Paid)
-                .ToList();
+            throw new NotImplementedException();
         }
 
-        public List<PurchaseOrder> ReportPurchaseOrdersChair()
+        public List<ProductDto> ProductsOrderedByUnits()
         {
-            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
-            return purchaseOrders
-                .Where(pOL => pOL.PurchasedProducts.Any(p => p.Name.Equals("Silla")))
-                .ToList();
+            throw new NotImplementedException();
         }
 
-        public List<PurchaseOrder> ReportLevisPurchaseOrders()
+        public List<OrderProviderDto> PurchaseOrdersChair()
         {
-            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
-            return purchaseOrders
-                .Where(pOL => pOL.Provider.Name.Equals("Levis") && pOL.Status != PurchaseOrderStatus.Paid)
-                .ToList();
+            throw new NotImplementedException();
         }
 
-        public Product ReportMorePurchasedProduct()
+        public List<OrderProviderDto> PurchaseOrdersSalchichonPending()
         {
-            var purchaseOrders = purchaseOrderService.GetPurchaseOrders();
+            throw new NotImplementedException();
+        }
 
-            return purchaseOrders.Where(pOL => pOL.Status == PurchaseOrderStatus.Paid)
-                .SelectMany(x => x.PurchasedProducts)
-                .GroupBy(g => g.Id)
-                .Select(g => new { g.Key, Product = g.First(), Sum = g.Sum(d => d.Stock) })
-                .OrderByDescending(c => c.Sum)
-                .FirstOrDefault()?.Product;
+        public List<ProductDto> Top5ExpensiveProducts()
+        {
+            throw new NotImplementedException();
         }
     }
 }
