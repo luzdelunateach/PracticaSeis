@@ -1,0 +1,41 @@
+﻿@page "/movie/add/"
+@inject IMovieApi movieApi
+@inject NavigationManager navigationManager
+@*lo de arriba es la directiva para acceder en la url, es para poder acceder al compoenente como si fuera una pagina pero sigue siendo un componente*@
+<h3>Add a new movie</h3>
+
+<MovieAddEditForm Movie="model" Loading="_loading" OnValid="Add"/>
+
+@if (_showError)
+{
+    <p>There request could not be processed</p>
+}
+
+
+@code {
+    private MovieDto model = new();
+
+    private bool _loading = false;
+    private bool _showError = false;
+
+
+    private async Task Add()
+    {
+
+        _loading = true;
+        _showError = false;
+        var result = await movieApi.Add(model);
+        if (result is null)
+        {
+            navigationManager.NavigateTo("Index");
+        }
+        else
+        {
+            _showError = true;
+            Console.WriteLine(_showError);
+        }
+        _loading = false;
+
+    }
+
+}

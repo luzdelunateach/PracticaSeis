@@ -1,0 +1,66 @@
+﻿<div class="row">
+    <div class="col-md-3 mb-3">
+         <img class="rounded float-left" style="width: 18rem;" src="@Actor.Photo" >
+    </div>
+</div>
+<EditForm Model="Actor" OnValidSubmit="OnValid">
+    <FluentValidationValidator />
+    <!--<DataAnnotationsValidator />-->
+    <div class="form-group">
+        <label>First Name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Actor.FirstName"></InputText>
+            <ValidationMessage For="@(()=>Actor.FirstName)" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label>Last Name:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Actor.LastName"></InputText>
+            <ValidationMessage For="@(()=>Actor.LastName)" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label>Birthday:</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="Actor.DateOfBirth"></InputDate>
+            <ValidationMessage For="@(()=>Actor.DateOfBirth)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Years Active:</label>
+        <div>
+            <InputNumber class="form-control" @bind-Value="Actor.YearsActive"></InputNumber>
+            <ValidationMessage For="@(()=>Actor.YearsActive)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Photo:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Actor.Photo"></InputText>
+            <ValidationMessage For="@(()=>Actor.Photo)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Bigraphy:</label>
+        <div>
+            <InputTextArea class="form-control" @bind-Value="Actor.Biography"></InputTextArea>
+            <ValidationMessage For="@(()=>Actor.Biography)" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">
+        <img src="https://www.mansarovar.com.co/app/PQRS/LibraryCSS/giphy.gif" style="width:20px;height:20px;" class="@(Loading ? "":"d-none")" />
+        Save ♥
+    </button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public ActorDto Actor { get; set; }
+    [Parameter]
+    public EventCallback OnValid { get; set; }
+    [Parameter]
+    public bool Loading {get;set;}
+}

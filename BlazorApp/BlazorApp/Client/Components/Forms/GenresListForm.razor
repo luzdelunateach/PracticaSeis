@@ -1,0 +1,54 @@
+﻿@inject IGenreApi genreApi;
+<h4>Genres</h4>
+<div class="form-control">
+    <label>Check Genres: </label>
+    @if (ListGenres is not null)
+    {
+        @if (_genreMovie != null)
+        {
+            foreach (var i in _genreMovie)
+            {
+                <input type="checkbox" value="@i.Id" @onchange="eventArgs => { OnValueChanged(i.Id, eventArgs.Value); }" checked="@ListGenres.Contains(i.Id)">@i.Name
+            }
+        }
+    }
+    else
+    {
+        @if (_genreMovie != null)
+        {
+            @foreach (var i in _genreMovie)
+            {
+
+                <input type="checkbox" value="@i.Id" @onchange="eventArgs => { OnValueChanged(i.Id, eventArgs.Value); }">@i.Name
+
+            }
+        }
+    }
+</div>
+@code {
+    private List<GenreDto> _genreMovie { get; set; }
+
+    [Parameter]
+    public List<int> ListGenres { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<List<int>> OnGenreSelection { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _genreMovie = await genreApi.GetAll();
+    }
+
+    private void OnValueChanged(int e, object checkedValue)
+    {
+        if ((bool)checkedValue)
+        {
+            ListGenres.Add(e);
+        }
+        else
+        {
+            ListGenres.Remove(e);
+        }
+        OnGenreSelection.InvokeAsync(ListGenres);
+    }
+}

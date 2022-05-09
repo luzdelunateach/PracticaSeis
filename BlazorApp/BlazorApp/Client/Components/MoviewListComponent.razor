@@ -1,0 +1,52 @@
+﻿@inject IJSRuntime js
+@using Model.Entities;
+
+<input type="checkbox" @bind="_show" />
+<div style="display: flex;flex-wrap: wrap; align-items:center;">
+    <GericListComponent GenericList="Movies">
+        <ListAny Context="movie">
+            <MovieSingleComponent Movie="movie" ShowButton="_show" DeleteMovie="DeleteMovie"></MovieSingleComponent>
+        </ListAny>
+    </GericListComponent>
+</div>
+@code{
+    [Parameter]
+
+    public List<Movie> Movies { get; set; }
+
+    private bool _show = false;
+
+    //Ciclo de vida
+    /*protected override void OnInitialized()
+    {
+        Console.WriteLine($"OnInitialized - Movies count = {Movies.Count}");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine($"OnParameterSet - Movies Count= {Movies.Count}");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        Console.WriteLine($"On afeterrender- firstRender = {firstRender}");
+    }
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("Shoul Render");
+        return base.ShouldRender();
+        //return false;
+    }
+    */
+    private async Task DeleteMovie(Movie movie)
+    {
+        //en el nombre del metodo
+        bool confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to remove {movie.Title}?");
+        if (confirm)
+        {
+            Movies.Remove(movie);
+            //Console.WriteLine($"Deleting movie {movie.Title}...");
+            await js.InvokeVoidAsync("console.log", $"Deleting movie {movie.Title}...");
+        }
+    }
+}

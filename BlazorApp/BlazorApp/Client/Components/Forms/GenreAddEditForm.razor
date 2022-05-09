@@ -1,0 +1,27 @@
+﻿<EditForm Model="Gender" OnValidSubmit="OnValid">
+    <FluentValidationValidator />
+    <div class="form-group">
+        <label>Title:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Gender.Name"></InputText>
+            <ValidationMessage For="@(()=>Gender.Name)" />
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        <img src="https://www.mansarovar.com.co/app/PQRS/LibraryCSS/giphy.gif" style="width:20px;height:20px;" class="@(Loading ? "":"d-none")" />
+        Save♥
+    </button>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public GenreDto Gender { get; set; }
+    [Parameter]
+    public EventCallback OnValid { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+}
+

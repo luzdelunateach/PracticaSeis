@@ -1,0 +1,34 @@
+﻿@page "/gender/add/"
+@inject IGenreApi genreApi
+@inject NavigationManager navigationManager
+<h3>New Gender</h3>
+
+<GenreAddEditForm Gender="model" Loading="_loading" OnValid="Add"/>
+
+@if (_showError) {
+    <p>There request could not be processed</p>
+}
+
+@code {
+
+    public GenreDto model = new GenreDto();
+    private bool _loading = false;
+    private bool _showError = false;
+
+    private async Task Add()
+    {
+        _loading = true;
+        _showError = false;
+        var result = await genreApi.Add(model);
+        if(result is null)
+        {
+            navigationManager.NavigateTo("gender");
+        }
+        else {
+            _showError = true;
+            Console.WriteLine(_showError);
+        }
+        
+        _loading = false;
+    }
+}

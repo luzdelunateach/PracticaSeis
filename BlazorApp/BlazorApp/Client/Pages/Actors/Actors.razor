@@ -1,0 +1,66 @@
+﻿@page "/actors"
+@inject IActorApi actorApi
+<div class="row justify-content-center mb-3">
+    <div class="col-md-3 pl-5">
+        <h1>Actors ♥</h1>
+    </div>
+</div>
+<div class="row justify-content-center mb-3">
+    <div class="col-md-3 pl-5">
+        <div class="form-group">
+            <a href="actor/add" class="btn btn-info">Add an Actor</a>
+        </div>
+    </div>
+</div>
+@if (_loading)
+{
+    <div class="text-center">
+        <img src="https://www.mansarovar.com.co/app/PQRS/LibraryCSS/giphy.gif" style="width:20px;height:20px;" />
+    </div>
+}
+else
+{
+
+    @if (model.Any())
+    {
+
+   
+        @foreach (var item in model)
+        {
+           
+            <div class="row mb-3 justify-content-center bg-light">
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="@item.Photo" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                            <p class="card-text">@item.Biography</p>
+                            <a href="@($"actor/edit/{item.Id}")" type="button" class="btn btn-secondary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            }
+
+        }
+else
+    {
+        <p>There are no elements to show.</p>
+    }
+
+}
+
+
+
+    @code {
+private List<ActorDto> model = new();
+    private bool _loading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        model = await actorApi.GetAll();
+        _loading = false;
+    }
+    }

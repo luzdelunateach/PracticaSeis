@@ -1,0 +1,47 @@
+﻿@page "/gender/edit/{id:int}"
+@inject IGenreApi genreApi
+@inject NavigationManager navigationManager
+@using Model.Entities
+
+<h3>New Gender</h3>
+
+<GenreAddEditForm Gender="model" Loading="_loading" OnValid="Edit"></GenreAddEditForm>
+
+@if (_showError) { 
+    <p class="text-danger"> The request could not be processed.</p>
+}
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    public GenreDto model = new();
+    private bool _loading = false;
+    private bool _showError = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await genreApi.GetById(Id);
+    }
+
+    private async Task Edit()
+    {
+        _loading = true;
+        _showError = false;
+        // Console.WriteLine(navigationManager.BaseUri);
+        //Console.WriteLine(navigationManager.Uri);
+        // navigationManager.NavigateTo("movie");
+        var result = await genreApi.Update(model);
+        if (result is null)
+        {
+            navigationManager.NavigateTo("gender");
+        }
+        else
+        {
+            _showError = true;
+            Console.WriteLine(_showError);
+        }
+
+        _loading = false;
+
+    }
+}

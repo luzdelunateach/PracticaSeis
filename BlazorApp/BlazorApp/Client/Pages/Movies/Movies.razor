@@ -1,0 +1,66 @@
+﻿@page "/movies"
+@inject IMovieApi movieApi
+<div class="row justify-content-center mb-3">
+    <div class="col-md-3 pl-5">
+        <h1>Movies ♥</h1>
+    </div>
+</div>
+<div class="row justify-content-center mb-3">
+    <div class="col-md-3 pl-5">
+        <div class="form-group">
+            <a href="movie/add" class="btn btn-info">Add a Movie</a>
+        </div>
+    </div>
+</div>
+@if (_loading)
+{
+    <div class="text-center">
+        <img src="https://www.mansarovar.com.co/app/PQRS/LibraryCSS/giphy.gif" style="width:20px;height:20px;" />
+    </div>
+}
+else
+{
+
+    @if (model.Any())
+    {
+
+
+        @foreach (var item in model)
+        {
+
+            <div class="row mb-3 justify-content-center bg-light">
+                <div class="col-md-3">
+                    <a href="movie">
+                        <img src="@item.Poster" alt="Poster" style="width:225px;height:300px;" />
+                    </a>
+                    <h4><a href="@($"movie/showdetail/{item.Id}")">@item.Title</a></h4>
+                    <p>@item.ReleaseDate.ToShortDateString()</p>
+                    <a href="@($"movie/edit/{item.Id}")" type="button" class="btn btn-secondary">Edit</a>
+
+
+                </div>
+            </div>
+
+        }
+
+    }
+    else
+    {
+        <p class="text-danger">There are no elements to show.</p>
+    }
+
+}
+
+
+
+@code {
+    private List<MovieDto> model = new();
+    private bool _loading = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        model = await movieApi.GetAll();
+        _loading = false;
+    }
+}

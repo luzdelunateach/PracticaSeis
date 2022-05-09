@@ -1,0 +1,44 @@
+﻿@typeparam Titem
+<div>
+    @if (GenericList is null)
+    {
+        if (ListNull is null)
+        {
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" />
+        }
+        else
+        {
+            @ListNull
+        }
+
+    }
+    else if (!GenericList.Any())
+    {
+         if(ListEmpty is null)
+          {
+           <p>Tehere are no element to show</p>
+         }
+         else
+         {
+                    @ListEmpty
+         }
+     }
+    else
+    {
+        @foreach (var item in GenericList)
+        {
+            @ListAny(item)
+            
+        }
+    }
+</div>
+@code{
+    [Parameter]
+    public RenderFragment ListNull { get; set; }
+    [Parameter]
+    public RenderFragment ListEmpty { get; set; }
+    [Parameter]
+    public List<Titem> GenericList { get; set; }
+    [Parameter]
+    public RenderFragment<Titem> ListAny { get; set; }
+}

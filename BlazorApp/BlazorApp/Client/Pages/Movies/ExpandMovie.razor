@@ -1,0 +1,51 @@
+﻿@page "/movie/showdetail/{id:int}"
+@inject IMovieApi movieApi
+<h3>Movie Details ♥</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6" style="border: 1px solid #000; align-items: center;justify-content: center; text-align: center; display: flex;">
+            <div style="">
+                <h3>@model.Title</h3>
+                <img src="@model.Poster" style="width:300px;" class="mb-3" />
+            </div>
+        </div>
+        <div class="col-sm-6" style="border: 1px solid #000; ">
+            <div class="row">
+
+                <div class="col-sm-12" style="border-bottom:1px solid #000;">
+                    <h3>Release Movie</h3>
+                    <p>@model.ReleaseDate.ToShortDateString()</p>
+                </div>
+                <div class="col-sm-12" style="border-bottom:1px solid #000;">
+                    <h3>Genres</h3>
+                    @foreach (var g in model.Genderss)
+                    {
+                        <p>@g.Name</p>
+                    }
+
+                </div>
+                <div class="col-sm-12">
+                    <h3>Actors</h3>
+                    @foreach (var g in model.Actorss)
+                    {
+                        <p>@g.FirstName @g.LastName</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@page "/movie"
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public MovieDto model = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await movieApi.GetById(Id);
+    }
+}
