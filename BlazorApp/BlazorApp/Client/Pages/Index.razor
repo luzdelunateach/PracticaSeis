@@ -1,0 +1,30 @@
+﻿@page "/"
+@page "/index"
+@inject NavigationManager navigationManager
+
+@*<p>Singleton count: @singleton.Value</p>
+
+        <MoviewListComponent Movies="Movies" />
+        <button>
+                <button @onclick="AddMovie">Add movie</button>
+            </button>
+    @code{
+        public List<Movie> Movies { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            Movies = movieApi.GetMovies();
+        }
+
+
+    }*@
+@code{     
+
+    protected override void OnInitialized()
+    {
+        navigationManager.NavigateTo("movies");
+    }
+
+}
+
+

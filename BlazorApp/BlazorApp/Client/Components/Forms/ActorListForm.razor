@@ -1,0 +1,62 @@
+﻿@inject IMovieApi movieApi;
+<h4>Actors</h4>
+<div class="form-control">
+    <label>Select Actors: </label>
+
+    @if (ListActors is not null)
+    {
+        @if (_actorMovie != null)
+        {
+            foreach (var i in _actorMovie)
+            {
+                 <input type="checkbox" value="@i.ActorsId" @onchange="eventArgs => { OnValueChanged(i.ActorsId, eventArgs.Value); }" checked="@ListActors.Contains(i.ActorsId)">@i.FirstName @i.LastName
+            }
+        }
+    }
+    else
+    {
+        @if (_actorMovie != null)
+        {
+
+            foreach (var i in _actorMovie)
+            {
+
+                <input type="checkbox" value="@i.ActorsId" @onchange="eventArgs => { OnValueChanged(i.ActorsId, eventArgs.Value); }">@i.FirstName @i.LastName
+
+            }
+        }
+    }
+
+
+</div>
+@code {
+    private List<ActorMovieDto> _actorMovie { get; set; }
+    public int j = 0;
+    [Parameter]
+    public List<int> ListActors { get; set; }
+
+    public List<int> ListActorsTwo { get; set; } = new();
+    //[Parameter]
+    //public MovieDto Movie { get; set; }
+    [Parameter]
+    public EventCallback<List<int>> OnActorSelection { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _actorMovie = await movieApi.GetActorsMovie();
+
+    }
+
+    private void OnValueChanged(int e, object checkedValue)
+    {
+       
+        if ((bool)checkedValue)
+        {
+            ListActors.Add(e);
+        } else
+        {
+            ListActors.Remove(e);
+        }
+        OnActorSelection.InvokeAsync(ListActors);
+    }
+}

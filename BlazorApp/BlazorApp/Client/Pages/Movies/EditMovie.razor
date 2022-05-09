@@ -1,0 +1,53 @@
+﻿@page "/movie/edit/{id:int}"
+@inject IMovieApi movieApi
+@inject NavigationManager navigationManager
+@using Model.Entities
+<h3>Edit Movie</h3>
+
+<MovieAddEditForm Movie="model" OnValid="Edit"></MovieAddEditForm>
+@if (_showError)
+{
+    <p class="text-danger"> The request could not be processed.</p>
+}
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    public MovieDto model = new();
+    private bool _loading = false;
+    private bool _showError = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await movieApi.GetById(Id);
+    }
+    /* private Movie Movie = new Movie();
+    protected override void OnInitialized()
+    {
+        Movies = new MovieDto { Id = this.Id, Title = this.Title };
+        // Console.WriteLine(navigationManager.BaseUri);
+        //Console.WriteLine(navigationManager.Uri);
+        // navigationManager.NavigateTo("movie");
+        Console.WriteLine($"New movie information:  \nTitle:{Movies.Title} ReleaseDate: {Movies.ReleaseDate}");
+    }*/
+
+    public async Task Edit()
+    {
+        _loading = true;
+        _showError = false;
+        var result = await movieApi.Update(model);
+        if (result is null)
+        {
+            navigationManager.NavigateTo("Index");
+        }
+        else
+        {
+            _showError = true;
+            Console.WriteLine(_showError);
+        }
+
+        _loading = false;
+
+    }
+
+}

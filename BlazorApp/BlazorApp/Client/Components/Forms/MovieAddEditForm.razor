@@ -1,0 +1,60 @@
+﻿@inject IMovieApi movieApi
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <img class="rounded float-left" style="width: 18rem;" src="@Movie.Poster">
+    </div>
+</div>
+<EditForm Model="Movie" OnValidSubmit="OnValid">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Title:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Movie.Title"></InputText>
+            <ValidationMessage For="@(()=>Movie.Title)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Poster:</label>
+        <div>
+            <InputText class="form-control" @bind-Value="Movie.Poster"></InputText>
+            <ValidationMessage For="@(()=>Movie.Poster)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Release Date</label>
+        <div>
+            <InputDate class="form-control" @bind-Value="Movie.ReleaseDate"></InputDate>
+        </div>
+    </div>
+    <ActorListForm OnActorSelection="ActorsSelectionChanged" ListActors="Movie.Actors"/>
+    <GenresListForm OnGenreSelection="GenreSelectionChanged" ListGenres="Movie.Genres"/>
+    <button type="submit" class="btn btn-success">
+        <img src="https://www.mansarovar.com.co/app/PQRS/LibraryCSS/giphy.gif" style="width:20px;height:20px;" class="@(Loading ? "":"d-none")" />
+        Save♥
+    </button>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public MovieDto Movie { get; set; }
+    [Parameter]
+    public EventCallback OnValid { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
+    private List<int> _listActors { get; set; }
+
+    private List<int> _listGenres { get; set; }
+
+    protected void ActorsSelectionChanged(List<int> actorsList)
+    {
+        Movie.Actors = actorsList;
+    }
+
+    protected void GenreSelectionChanged(List<int> genreList)
+    {
+        Movie.Genres = genreList;
+    }
+}
