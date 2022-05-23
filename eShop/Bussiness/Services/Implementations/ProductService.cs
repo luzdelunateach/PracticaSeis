@@ -18,23 +18,32 @@ namespace Bussiness.Services.Implementations
             _context = context;
         }
 
-        public void RegisterProduct(ProductRegistryDto productRegistry)
+        /* public async Task<Product> RegisterProduct(ProductRegistryDto productRegistry)
+         {
+             var subdeparment = _context.Subdepartments.FirstOrDefault(s => s.Id == productRegistry.SubdepartmentId);
+             var product = new Product(productRegistry.Name, productRegistry.Stock, productRegistry.Price, productRegistry.Sku, productRegistry.Description, productRegistry.Brand, subdeparment);
+
+             try
+             {
+                 if (subdeparment is null)
+                     throw new ArgumentNullException("El subdepartamento no existe.");
+
+
+
+                 _context.Products.Add(product);
+                 _context.SaveChanges();
+             }
+             catch (Exception ex)
+             {
+                 throw new Exception(ex.Message);
+             }
+         }*/
+
+        public async Task<Product> AddAsync(Product product)
         {
-            var subdeparment = _context.Subdepartments.FirstOrDefault(s => s.Id == productRegistry.SubdepartmentId);
-            try
-            {
-                if (subdeparment is null)
-                    throw new ArgumentNullException("El subdepartamento no existe.");
-
-                var product = new Product(productRegistry.Name, productRegistry.Stock, productRegistry.Price, productRegistry.Sku, productRegistry.Description, productRegistry.Brand, subdeparment);
-
-                _context.Products.Add(product);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+            return product;
         }
         public async Task<List<ProductDto>> GetAll()
         {
@@ -52,6 +61,33 @@ namespace Bussiness.Services.Implementations
             }).ToListAsync();
 
             return await products;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var entity = await _context.Products.FindAsync(id);
+            if (entity == null)
+                return false;
+
+            _context.Products.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Product> EditAsync(ProductDto product)
+        {
+            var entity = await _context.Products.FindAsync(product.Id);
+            if (entity == null)
+                return default;
+
+            //entity.Edit(movie.Title, movie.Body);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<Product> GetAsync(int id)
+        {
+            return await _context.Products.Include(a => a.Subdepartment).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public List<ProductDto> GetStockProducts()

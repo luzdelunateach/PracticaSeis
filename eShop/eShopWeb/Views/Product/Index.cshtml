@@ -1,5 +1,10 @@
 ﻿<div class="container">
     <div class="row">
+        <div class="col-md-12 ml-auto">
+            <a href="~/Product/RegistryProduct" class="btn btn-primary mb-3">Create</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <table class="table">
                 <thead>
@@ -8,6 +13,8 @@
                         <th scope="col">Stock</th>
                         <th scope="col">Price</th>
                         <th scope="col">Sku</th>
+                        <td>Edit a Product</td>
+                        <td>Delete a Product</td>
                     </tr>
                 </thead>
                 <tbody id="ListProducts">
@@ -33,7 +40,7 @@
                     //let articles = JSON.parse(data);
                     var html = '';
                     for (var i in product) {
-                        html += '<tr><td>' + product[i].name + '</td><td>' + product[i].stock + '</td><td>' + product[i].price + '</td><td>' + product[i].sku +'</td></tr>';
+                        html += '<tr><td>' + product[i].name + '</td><td>' + product[i].stock + '</td><td>' + product[i].price + '</td><td>' + product[i].sku +'</td><td><a class="btn btn-info">Edit</a></td><td><a class="btn btn-danger">Delete</a></td></tr>';
                     }
                     $('#ListProducts').html(html);
                 },

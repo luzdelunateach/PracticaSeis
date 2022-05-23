@@ -1,6 +1,8 @@
 ﻿
 using Bussiness.Models;
 using Bussiness.Services.Abstractions;
+using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,22 @@ namespace Bussiness.Services.Implementations
 
             return subdepartment;
         }
-        
+
+        public async Task<List<SubdeparmentDto>> GetAllAsync()
+        {
+            var subdepartment =  _context.Subdepartments.Select(s => new SubdeparmentDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                DepartmentName = s.Department.Name
+            }).ToListAsync();
+
+            return await subdepartment;
+        }
+
+        public async Task<Subdepartment> GetAsync(int id)
+        {
+            return await _context.Subdepartments.FirstOrDefaultAsync(s=>s.Id==id);
+        }
     }
 }

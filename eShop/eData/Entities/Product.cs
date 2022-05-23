@@ -19,7 +19,7 @@ namespace Data.Entities
         {
 
         }
-        public Product(string name, int stock, decimal price, string sku, string description, string brand, Subdepartment? subdepartment)
+        public Product(string name, int stock, decimal price, string sku, string description, string brand, Subdepartment subdepartment)
         {
             
             Name = name;

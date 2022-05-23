@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Data.Entities;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +10,20 @@ namespace Bussiness.Models
 {
     public class ProductRegistryDto
     {
+        [Required]
+        [StringLength(60, MinimumLength = 3)]
         public string Name { get; set; }
+        [Required]
         public int Stock { get; set; }
+        [Required]
         public decimal Price { get; set; }
+        [Required]
         public string Sku { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
         public string Brand { get; set; }
+        [Required]
         public int SubdepartmentId { get; set; }
 
         public void Validation()
@@ -30,9 +40,10 @@ namespace Bussiness.Models
                 throw new ArgumentException("La descripción no debe estar vacia.");
             if (string.IsNullOrEmpty(Brand))
                 throw new ArgumentException("La marca no debe estar vacia.");
-            if (SubdepartmentId<=0)
-                throw new ArgumentException("El id del Subdepartamento no puede ser menor o ser 0");
+            
         }
+
+     
 
     }
 }

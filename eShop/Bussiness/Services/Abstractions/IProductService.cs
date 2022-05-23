@@ -10,8 +10,16 @@ namespace Bussiness.Services.Abstractions
     {
         void Delete(int id);
         Task<List<ProductDto>> GetAll();
+
+        Task<Product> AddAsync(Product product);
+
+        Task<bool> DeleteAsync(int id);
+
+        Task<Product> EditAsync(ProductDto product);
+
+        Task<Product> GetAsync(int id);
         ProductDto GetProduct(int id);
-        void RegisterProduct(ProductRegistryDto productRegistry);
+        //void RegisterProduct(ProductRegistryDto productRegistry);
         void UpdateProduct(ProductDto product);
         public void UpdateStock(int cantidad, int id);
         public List<ProductDto> GetStockProducts();
